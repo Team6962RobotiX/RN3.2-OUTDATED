@@ -104,7 +104,6 @@ public class Robot extends TimedRobot {
         stopBelt = new DigitalInput(6);
 
         // Camera
-        /*
         ballAngleValue[0] = -1;
 
         System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
@@ -149,7 +148,11 @@ public class Robot extends TimedRobot {
                                                 WINDOW_HEIGHT,
                                                 cameraMatrix,
                                                 distCoeffs);
-                                if (output != null && !output.empty()) cvSource.putFrame(output);
+                                if (output != null && !output.empty()) {
+                                    cvSource.putFrame(output);
+                                } else {
+                                    cvSource.putFrame(source);
+                                }
                                 ballAngleValue[0] =
                                         FindBall.getBallValue(
                                                 source,
@@ -163,7 +166,6 @@ public class Robot extends TimedRobot {
                             }
                         })
                 .start();
-        */
     }
 
     @Override
