@@ -69,8 +69,8 @@ public class Robot extends TimedRobot {
 
     // Autonomous
     ArrayList<int[]> path = new ArrayList<int[]>();
-    double correctionFactor = 0.05;
-    int clock = 100;
+    double correctionFactor = 0.01;
+    int clock = 250;
     long start;
 
     @Override
@@ -175,6 +175,8 @@ public class Robot extends TimedRobot {
     @Override
     public void autonomousInit() {
         start = System.currentTimeMillis();
+        encoder1.reset();
+        encoder2.reset();
         // path = new ArrayList<int[]>();
 
         // Scanner sc;
@@ -198,7 +200,6 @@ public class Robot extends TimedRobot {
         double substep = (now % clock) / clock; // % of the way through current path step
 
         if (step < path.size() - 1) {
-            System.out.println(path.get(step));
             int[] current = path.get(step);
             int[] next = path.get(step + 1);
 
@@ -216,7 +217,6 @@ public class Robot extends TimedRobot {
 
             myDrive.tankDrive(correctionLeft, correctionRight);
         } else if (step < path.size()) {
-            System.out.println(path.get(step));
             int[] target = path.get(step);
 
             double targetLeft = target[0] * substep;
