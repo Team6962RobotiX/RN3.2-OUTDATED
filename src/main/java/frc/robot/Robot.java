@@ -73,7 +73,7 @@ public class Robot extends TimedRobot {
     // Autonomous
     ArrayList<int[]> path = new ArrayList<int[]>();
     double correctionFactor = 0.01;
-    int clock = 250;
+    int clock = 100;
     long start;
 
     @Override
@@ -339,7 +339,7 @@ public class Robot extends TimedRobot {
                         ((encoder2.getDistance() - path.get(step - 1)[1]) * substep)
                                 + path.get(step - 1)[1];
 
-                System.out.println(leftDistance, rightDistance);
+                System.out.println(Double.toString(leftDistance)+" ,"+Double.toString(rightDistance));
                 path.add(new int[] {(int) leftDistance, (int) rightDistance});
             }
         }
