@@ -134,15 +134,18 @@ public class Robot extends TimedRobot {
                             Mat source = new Mat();
                             // Mat output = new Mat();
                             int i = 0;
+                            boolean flag = true;
 
                             while (!Thread.interrupted()) {
 
                                 if (cvSink.grabFrame(source) == 0) {
                                     SmartDashboard.putString("Status", cvSink.getError());
+                                    flag = false;
                                 } else {
                                     SmartDashboard.putString(
                                             "Status", "success" + Integer.toString(i));
                                     i++;
+                                    flag = true;
                                 }
                                 output =
                                         FindBall.displayContours(
@@ -154,7 +157,9 @@ public class Robot extends TimedRobot {
                                 if (output != null && !output.empty()) {
                                     cvSource.putFrame(output);
                                 } else {
-                                    cvSource.putFrame(source);
+                                    if(flag) {
+                                        cvSource.putFrame(source);
+                                    }
                                 }
                                 ballAngleValue[0] =
                                         FindBall.getBallValue(
