@@ -73,7 +73,7 @@ public class Robot extends TimedRobot {
     // Autonomous
     ArrayList<int[]> path = new ArrayList<int[]>();
     double correctionFactor = 0.01;
-    int clock = 250;
+    int clock = 100;
     long start;
 
     @Override
@@ -238,6 +238,7 @@ public class Robot extends TimedRobot {
             System.out.println(
                     Double.toString(correctionLeft) + ", " + Double.toString(correctionRight));
             // myDrive.tankDrive(correctionLeft, correctionRight);
+            myDrive.tankDrive(0, 0);
         } else if (step < path.size()) {
             int[] target = path.get(step);
 
@@ -256,6 +257,7 @@ public class Robot extends TimedRobot {
             System.out.println(
                     Double.toString(correctionLeft) + ", " + Double.toString(correctionRight));
             // myDrive.tankDrive(correctionLeft, correctionRight);
+            myDrive.tankDrive(0, 0);
         } else {
             myDrive.tankDrive(0, 0);
         }
