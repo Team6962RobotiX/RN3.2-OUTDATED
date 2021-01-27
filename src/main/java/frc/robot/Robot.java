@@ -258,10 +258,14 @@ public class Robot extends TimedRobot {
     }
 
     @Override
-    public void teleopPeriodic() {
+    public void teleopInit() {
         start = System.currentTimeMillis();
         encoder1.reset();
         encoder2.reset();
+    }
+
+    @Override
+    public void teleopPeriodic() {
 
         // Turning speed limit
         double limitTurnSpeed = 0.75; // EDITABLE VALUE
