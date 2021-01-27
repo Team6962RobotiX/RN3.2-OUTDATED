@@ -198,6 +198,7 @@ public class Robot extends TimedRobot {
         double substep = (now % clock) / clock; // % of the way through current path step
 
         if (step < path.size() - 1) {
+            System.out.println(path.get(step));
             int[] current = path.get(step);
             int[] next = path.get(step + 1);
 
@@ -215,6 +216,7 @@ public class Robot extends TimedRobot {
 
             myDrive.tankDrive(correctionLeft, correctionRight);
         } else if (step < path.size()) {
+            System.out.println(path.get(step));
             int[] target = path.get(step);
 
             double targetLeft = target[0] * substep;
@@ -309,7 +311,6 @@ public class Robot extends TimedRobot {
         if (path.size() <= step) {
             if (step == 0) path.add(new int[] {0, 0});
             else {
-                System.out.println(step);
                 // estimate position at time of step
                 double leftDistance =
                         ((encoder1.getDistance() - path.get(step - 1)[0]) * substep)
