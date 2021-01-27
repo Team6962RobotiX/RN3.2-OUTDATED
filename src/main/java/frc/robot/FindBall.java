@@ -160,7 +160,6 @@ public class FindBall {
 		}
 		if (mat == null || mat.empty()) {
 			System.out.println("mat is empty");
-
 			return null;
 		}
 		Mat blurred = new Mat(), hsv = new Mat(mat.rows(), mat.cols(), CvType.CV_8UC2), mask = new Mat();
@@ -190,7 +189,8 @@ public class FindBall {
 			}
 		});
 		Imgproc.drawContours(result, contours, 0, new Scalar(255, 255, 255));
-		return result;
+		return hsv;
+		//return result;
 	}
 
 	public static double getBallValue(Mat mat, int width, int height, Mat cameraMatrix, Mat distCoeffs) {
