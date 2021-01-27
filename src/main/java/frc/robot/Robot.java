@@ -16,8 +16,8 @@ import edu.wpi.first.wpilibj.VictorSP;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-import org.opencv.core.Mat;
 import org.opencv.core.*;
+import org.opencv.core.Mat;
 
 import java.util.*;
 
@@ -117,7 +117,17 @@ public class Robot extends TimedRobot {
                         () -> {
                             FindTarget.setup();
                             FindBall.readCalibrationData(
-                                    "3 3\n9.292197792782764054e+02 0.000000000000000000e+00 6.771372380756025677e+02\n0.000000000000000000e+00 9.405077247570802683e+02 3.447556745828786120e+02\n0.000000000000000000e+00 0.000000000000000000e+00 1.000000000000000000e+00\n1 5\n6.677862607245312054e-02 -3.771175521797300728e-02 -4.856974855773007159e-03 2.624119205577779904e-03 -1.404855226310152971e-01",
+                                    "3 3\n"
+                                            + "9.292197792782764054e+02 0.000000000000000000e+00"
+                                            + " 6.771372380756025677e+02\n"
+                                            + "0.000000000000000000e+00 9.405077247570802683e+02"
+                                            + " 3.447556745828786120e+02\n"
+                                            + "0.000000000000000000e+00 0.000000000000000000e+00"
+                                            + " 1.000000000000000000e+00\n"
+                                            + "1 5\n"
+                                            + "6.677862607245312054e-02 -3.771175521797300728e-02"
+                                            + " -4.856974855773007159e-03 2.624119205577779904e-03"
+                                            + " -1.404855226310152971e-01",
                                     cameraMatrix,
                                     distCoeffs);
 
@@ -157,7 +167,7 @@ public class Robot extends TimedRobot {
                                 if (output != null && !output.empty()) {
                                     cvSource.putFrame(output);
                                 } else {
-                                    if(flag) {
+                                    if (flag) {
                                         cvSource.putFrame(source);
                                     }
                                 }
@@ -329,10 +339,8 @@ public class Robot extends TimedRobot {
                         ((encoder2.getDistance() - path.get(step - 1)[1]) * substep)
                                 + path.get(step - 1)[1];
 
-                path.add(
-                        new int[] {
-                            (int) Math.floor(leftDistance), (int) Math.floor(rightDistance)
-                        });
+                System.out.println(leftDistance, rightDistance);
+                path.add(new int[] {(int) leftDistance, (int) rightDistance});
             }
         }
     }
