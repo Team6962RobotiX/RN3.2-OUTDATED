@@ -69,8 +69,8 @@ public class Robot extends TimedRobot {
 
     // Autonomous
     ArrayList<int[]> path = new ArrayList<int[]>();
-    double correctionFactor = 0.25;
-    int clock = 50;
+    double correctionFactor = 0.05;
+    int clock = 100;
     long start;
 
     @Override
