@@ -50,14 +50,12 @@ public class FindBall {
     return image;
 	}
 
-	public static void readCalibrationData(String filename, Mat cameraMatrix, Mat distCoeffs) {
-		try {
-			BufferedReader bufferedReader = new BufferedReader(new FileReader(filename));
-			String line;
+	public static void readCalibrationData(String input, Mat cameraMatrix, Mat distCoeffs) {
+			//BufferedReader bufferedReader = new BufferedReader(new FileReader(filename));
 			int currentRow = -1;
 			int maxRows = 0, maxCols = 0;
 			boolean usingCameraMatrix = true;
-			while((line = bufferedReader.readLine()) != null) {
+			for(String line: input.split("\n")) {
 				if(currentRow == -1) {
 					String[] parts = line.split(" ", -1);
 					maxRows = Integer.parseInt(parts[0]);
@@ -88,9 +86,6 @@ public class FindBall {
 					if(currentRow == maxRows) { currentRow = -1; usingCameraMatrix = false; }
 				}
 			}
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
 	}
 
 	public static Point3 findBall(Mat mat, int width, int height, Mat cameraMatrix, Mat distCoeffs) {
