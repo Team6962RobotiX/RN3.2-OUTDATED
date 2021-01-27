@@ -4,9 +4,7 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 
 import edu.wpi.cscore.CvSink;
-import edu.wpi.cscore.CvSource;
 import edu.wpi.cscore.UsbCamera;
-import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Joystick;
@@ -16,7 +14,6 @@ import edu.wpi.first.wpilibj.VictorSP;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-import org.opencv.core.Core;
 import org.opencv.core.Mat;
 
 import java.util.*;
@@ -311,6 +308,7 @@ public class Robot extends TimedRobot {
         if (path.size() <= step) {
             if (step == 0) path.add(new int[] {0, 0});
             else {
+                System.out.println(step);
                 // estimate position at time of step
                 double leftDistance =
                         ((encoder1.getDistance() - path.get(step - 1)[0]) * substep)
