@@ -71,7 +71,7 @@ public class Robot extends TimedRobot {
     Mat source;
 
     // Autonomous
-    ArrayList<int[]> path;
+    ArrayList<int[]> path = new ArrayList<int[]>();
     double correctionFactor = 0.25;
     int clock = 50;
     long start;
@@ -107,6 +107,7 @@ public class Robot extends TimedRobot {
         stopBelt = new DigitalInput(6);
 
         // Camera
+        /*
         ballAngleValue[0] = -1;
 
         System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
@@ -165,6 +166,7 @@ public class Robot extends TimedRobot {
                             }
                         })
                 .start();
+        */
     }
 
     @Override
