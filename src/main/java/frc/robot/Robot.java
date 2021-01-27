@@ -260,6 +260,8 @@ public class Robot extends TimedRobot {
     @Override
     public void teleopPeriodic() {
         start = System.currentTimeMillis();
+        encoder1.reset();
+        encoder2.reset();
 
         // Turning speed limit
         double limitTurnSpeed = 0.75; // EDITABLE VALUE
@@ -325,10 +327,12 @@ public class Robot extends TimedRobot {
         // Pathing Stuff
         long now = (System.currentTimeMillis() - start);
 
-        int step = (int) Math.floor(now / clock); // index of path we're on or going through
+        int step = (int) (now / clock); // index of path we're on or going through
         double substep = (now % clock) / clock; // % of the way through current path step
 
         if (path.size() <= step) {
+            System.out.println(step);
+
             if (step == 0) path.add(new int[] {0, 0});
             else {
                 // estimate position at time of step
@@ -338,8 +342,6 @@ public class Robot extends TimedRobot {
                 double rightDistance =
                         ((encoder2.getDistance() - path.get(step - 1)[1]) * substep)
                                 + path.get(step - 1)[1];
-
-                System.out.println(leftDistance, rightDistance);
                 path.add(new int[] {(int) leftDistance, (int) rightDistance});
             }
         }
