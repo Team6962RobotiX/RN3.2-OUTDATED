@@ -73,7 +73,7 @@ public class Robot extends TimedRobot {
     // Autonomous
     ArrayList<int[]> path = new ArrayList<int[]>();
     double correctionFactor = 0.01;
-    int clock = 100;
+    int clock = 250;
     long start;
 
     @Override
@@ -235,7 +235,9 @@ public class Robot extends TimedRobot {
             double correctionRight = targetRight / realRight;
             correctionRight = ((correctionRight - 1) * correctionFactor) + 1;
 
-            myDrive.tankDrive(correctionLeft, correctionRight);
+            System.out.println(
+                    Double.toString(correctionLeft) + ", " + Double.toString(correctionRight));
+            // myDrive.tankDrive(correctionLeft, correctionRight);
         } else if (step < path.size()) {
             int[] target = path.get(step);
 
@@ -251,7 +253,9 @@ public class Robot extends TimedRobot {
             double correctionRight = targetRight / realRight;
             correctionRight = ((correctionRight - 1) * correctionFactor) + 1;
 
-            myDrive.tankDrive(correctionLeft, correctionRight);
+            System.out.println(
+                    Double.toString(correctionLeft) + ", " + Double.toString(correctionRight));
+            // myDrive.tankDrive(correctionLeft, correctionRight);
         } else {
             myDrive.tankDrive(0, 0);
         }
@@ -335,8 +339,6 @@ public class Robot extends TimedRobot {
         double substep = (now % clock) / clock; // % of the way through current path step
 
         if (path.size() <= step) {
-            System.out.println(path.size() + ", " + step);
-
             if (step == 0) path.add(new int[] {0, 0});
             else {
                 // estimate position at time of step
