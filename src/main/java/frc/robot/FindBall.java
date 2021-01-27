@@ -110,7 +110,7 @@ public class FindBall {
 		mask.copyTo(temp);
 		Imgproc.findContours(temp, contours, new Mat(), Imgproc.RETR_EXTERNAL, Imgproc.CHAIN_APPROX_SIMPLE);
 		if(contours.size() == 0) {
-			System.out.println("Empty contours");
+			//System.out.println("Empty contours");
 			return null; 
 		}
 		Collections.sort(contours, new Comparator<MatOfPoint>() {
@@ -169,13 +169,13 @@ public class FindBall {
 		mask.copyTo(temp);
 		Imgproc.findContours(temp, contours, new Mat(), Imgproc.RETR_EXTERNAL, Imgproc.CHAIN_APPROX_SIMPLE);
 		if(contours.size() == 0) {
-			System.out.println("Empty contours");
+			//System.out.println("Empty contours");
 			return null; 
 		}
 		Mat result = new Mat();
 		mat.copyTo(result);
 		if(contours.size() == 0) {
-			System.out.println("Empty contours");
+			//System.out.println("Empty contours");
 			return null; 
 		}
 		Collections.sort(contours, new Comparator<MatOfPoint>() {
