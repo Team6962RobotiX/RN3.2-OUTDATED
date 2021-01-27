@@ -4,7 +4,9 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 
 import edu.wpi.cscore.CvSink;
+import edu.wpi.cscore.CvSource;
 import edu.wpi.cscore.UsbCamera;
+import edu.wpi.first.cameraserver.*;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Joystick;
@@ -15,6 +17,7 @@ import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import org.opencv.core.Mat;
+import org.opencv.core.*;
 
 import java.util.*;
 
@@ -104,7 +107,6 @@ public class Robot extends TimedRobot {
         stopBelt = new DigitalInput(6);
 
         // Camera
-        /*
         ballAngleValue[0] = -1;
 
         System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
@@ -115,7 +117,7 @@ public class Robot extends TimedRobot {
                         () -> {
                             FindTarget.setup();
                             FindBall.readCalibrationData(
-                                    "calib-logitech.mov-720-30-calib.txt",
+                                    "3 3\n9.292197792782764054e+02 0.000000000000000000e+00 6.771372380756025677e+02\n0.000000000000000000e+00 9.405077247570802683e+02 3.447556745828786120e+02\n0.000000000000000000e+00 0.000000000000000000e+00 1.000000000000000000e+00\n1 5\n6.677862607245312054e-02 -3.771175521797300728e-02 -4.856974855773007159e-03 2.624119205577779904e-03 -1.404855226310152971e-01",
                                     cameraMatrix,
                                     distCoeffs);
 
@@ -132,15 +134,18 @@ public class Robot extends TimedRobot {
                             Mat source = new Mat();
                             // Mat output = new Mat();
                             int i = 0;
+                            boolean flag = true;
 
                             while (!Thread.interrupted()) {
 
                                 if (cvSink.grabFrame(source) == 0) {
                                     SmartDashboard.putString("Status", cvSink.getError());
+                                    flag = false;
                                 } else {
                                     SmartDashboard.putString(
                                             "Status", "success" + Integer.toString(i));
                                     i++;
+                                    flag = true;
                                 }
                                 output =
                                         FindBall.displayContours(
@@ -149,7 +154,13 @@ public class Robot extends TimedRobot {
                                                 WINDOW_HEIGHT,
                                                 cameraMatrix,
                                                 distCoeffs);
-                                if (output != null && !output.empty()) cvSource.putFrame(output);
+                                if (output != null && !output.empty()) {
+                                    cvSource.putFrame(output);
+                                } else {
+                                    if(flag) {
+                                        cvSource.putFrame(source);
+                                    }
+                                }
                                 ballAngleValue[0] =
                                         FindBall.getBallValue(
                                                 source,
@@ -163,7 +174,6 @@ public class Robot extends TimedRobot {
                             }
                         })
                 .start();
-        */
     }
 
     @Override
