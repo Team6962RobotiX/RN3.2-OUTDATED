@@ -221,6 +221,7 @@ public class Robot extends TimedRobot {
 
         if (step < path.size() - 1) {
             int[] current = path.get(step);
+            System.out.println(current);
             int[] next = path.get(step + 1);
 
             double targetLeft = (next[0] - current[0]) * substep;
