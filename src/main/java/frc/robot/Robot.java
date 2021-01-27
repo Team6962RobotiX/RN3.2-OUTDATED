@@ -331,7 +331,7 @@ public class Robot extends TimedRobot {
         double substep = (now % clock) / clock; // % of the way through current path step
 
         if (path.size() <= step) {
-            System.out.println(step);
+            System.out.println(path.size() + ", " + step);
 
             if (step == 0) path.add(new int[] {0, 0});
             else {
