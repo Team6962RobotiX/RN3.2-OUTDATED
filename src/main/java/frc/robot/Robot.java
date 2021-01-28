@@ -72,7 +72,7 @@ public class Robot extends TimedRobot {
 
     // Autonomous
     ArrayList<double[]> path = new ArrayList<double[]>();
-    double correctionFactor = 0.01;
+    double correctionFactor = 0.005; // roughly equivalent to 1% of top speed
     int clock = 100;
     long start;
 
@@ -228,11 +228,17 @@ public class Robot extends TimedRobot {
 
             double targetLeft = (next[0] - current[0]) * substep;
             double realLeft = encoder1.getDistance() - current[0];
-            double correctionLeft = ((targetLeft / realLeft - 1) * correctionFactor) + 1;
+            double correctionLeft = targetLeft / realLeft;
+            if (Double.isInfinite(correctionLeft)) correctionLeft = 1;
+            if (Double.isNaN(correctionLeft)) correctionLeft = 0;
+            correctionLeft = ((correctionLeft - 1) * correctionFactor) + 1;
 
             double targetRight = (next[1] - current[1]) * substep;
             double realRight = encoder2.getDistance() - current[1];
-            double correctionRight = ((targetRight / realRight - 1) * correctionFactor) + 1;
+            double correctionRight = targetRight / realRight;
+            if (Double.isInfinite(correctionRight)) correctionRight = 1;
+            if (Double.isNaN(correctionRight)) correctionRight = 0;
+            correctionRight = ((correctionRight - 1) * correctionFactor) + 1;
 
             System.out.println(
                     "Target left: "
@@ -248,11 +254,17 @@ public class Robot extends TimedRobot {
 
             double targetLeft = target[0] * substep;
             double realLeft = encoder1.getDistance();
-            double correctionLeft = ((targetLeft / realLeft - 1) * correctionFactor) + 1;
+            double correctionLeft = targetLeft / realLeft;
+            if (Double.isInfinite(correctionLeft)) correctionLeft = 1;
+            if (Double.isNaN(correctionLeft)) correctionLeft = 0;
+            correctionLeft = ((correctionLeft - 1) * correctionFactor) + 1;
 
             double targetRight = target[1] * substep;
             double realRight = encoder2.getDistance();
-            double correctionRight = ((targetRight / realRight - 1) * correctionFactor) + 1;
+            double correctionRight = targetRight / realRight;
+            if (Double.isInfinite(correctionRight)) correctionRight = 1;
+            if (Double.isNaN(correctionRight)) correctionRight = 0;
+            correctionRight = ((correctionRight - 1) * correctionFactor) + 1;
 
             System.out.println(
                     "Target left: "
