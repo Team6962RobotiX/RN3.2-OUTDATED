@@ -236,8 +236,8 @@ public class Robot extends TimedRobot {
             double correctionRight = targetRight / realRight;
             correctionRight = ((correctionRight - 1) * correctionFactor) + 1;
 
-            System.out.println(
-                    Double.toString(correctionLeft) + ", " + Double.toString(correctionRight));
+            System.out.println(correctionLeft);
+            System.out.println(correctionRight);
             // myDrive.tankDrive(correctionLeft, correctionRight);
             myDrive.tankDrive(0, 0);
         } else if (step < path.size()) {
@@ -255,8 +255,8 @@ public class Robot extends TimedRobot {
             double correctionRight = targetRight / realRight;
             correctionRight = ((correctionRight - 1) * correctionFactor) + 1;
 
-            System.out.println(
-                    Double.toString(correctionLeft) + ", " + Double.toString(correctionRight));
+            System.out.println(correctionLeft);
+            System.out.println(correctionRight);
             // myDrive.tankDrive(correctionLeft, correctionRight);
             myDrive.tankDrive(0, 0);
         } else {
@@ -351,6 +351,10 @@ public class Robot extends TimedRobot {
                 double rightDistance =
                         ((encoder2.getDistance() - path.get(step - 1)[1]) * substep)
                                 + path.get(step - 1)[1];
+
+                System.out.println(leftDistance);
+                System.out.println(rightDistance);
+
                 path.add(new int[] {(int) leftDistance, (int) rightDistance});
             }
         }
