@@ -368,8 +368,8 @@ public class Robot extends TimedRobot {
             }
         }
         //Parth reinvents the wheel!
-        double[] temporary = { encoder1.getDistance(), encoder2.getDistance(), now }
-        if(parth.size() == 0 || (parth.get(parth.size()-1)[0] == temporary[0] && parth.get(parth.size()-1)[1] == temporary[1]) parth.add(temporary);
+        double[] temporary = { encoder1.getDistance(), encoder2.getDistance(), now };
+        if(parth.size() == 0 || (parth.get(parth.size()-1)[0] == temporary[0] && parth.get(parth.size()-1)[1] == temporary[1]){ parth.add(temporary); }
     }
     
     @Override
