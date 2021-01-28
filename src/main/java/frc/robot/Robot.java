@@ -291,6 +291,7 @@ public class Robot extends TimedRobot {
             ldelta = (pnext[0]-pcurrent[0])/(pnext[2]-pcurrent[2]);
             rdelta = (pnext[1]-pcurrent[1])/(pnext[2]-pcurrent[2]);
         }
+        System.out.println(Double.toString(ldelta)+" ,"+Double.toString(rdelta));
         pindex++;
     }
 
