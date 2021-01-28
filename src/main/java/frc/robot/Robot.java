@@ -284,7 +284,7 @@ public class Robot extends TimedRobot {
         double[] pnext = {-1,-1,-1};
         double ldelta;
         double rdelta;
-        if(pindex+1 <= parth.size()){
+        if(pindex+1 < parth.size()){
             pnext = parth.get(pindex+1);
         }
         if(pnext[0] != -1){
