@@ -78,6 +78,7 @@ public class Robot extends TimedRobot {
 
     // Parth reinvents the wheel
     ArrayList<double[]> parth = new ArrayList<double[]>();
+    int pindex = 0;
 
     @Override
     public void robotInit() {
@@ -278,6 +279,19 @@ public class Robot extends TimedRobot {
         } else {
             myDrive.tankDrive(0, 0);
         }
+        //Parth Reinvents the wheel!
+        double[] pcurrent = parth.get(pindex);
+        double[] pnext = {-1,-1,-1};
+        double ldelta;
+        double rdelta;
+        if(pindex+1 >= parth.size()){
+            pnext = parth.get(pindex+1);
+        }
+        if(pnext[0] != -1){
+            ldelta = (pnext[0]-pcurrent[0])/(pnext[2]-pcurrent[2]);
+            rdelta = (pnext[1]-pcurrent[1])/(pnext[2]-pcurrent[2]);
+        }
+        pindex++;
     }
 
     @Override
@@ -378,19 +392,6 @@ public class Robot extends TimedRobot {
                         && parth.get(parth.size() - 1)[1] != temporary[1])) {
             parth.add(temporary);
             System.out.println("Added");
-        }
-    }
-
-    @Override
-    public void disabledInit() {
-        for (int i = 0; i < parth.size(); i++) {
-            System.out.println(
-                    "Time: "
-                            + Double.toString(parth.get(i)[2])
-                            + " Encoders: "
-                            + Double.toString(parth.get(i)[0])
-                            + ", "
-                            + Double.toString(parth.get(i)[1]));
         }
     }
 
