@@ -225,18 +225,23 @@ public class Robot extends TimedRobot {
 
             double targetLeft = (next[0] - current[0]) * substep;
             double realLeft = encoder1.getDistance() - current[0];
-            if (realLeft <= 0) realLeft = 0.01;
+            if (realLeft == 0) realLeft = 0.01;
             double correctionLeft = targetLeft / realLeft;
             correctionLeft = ((correctionLeft - 1) * correctionFactor) + 1;
 
             double targetRight = (next[1] - current[1]) * substep;
             double realRight = encoder2.getDistance() - current[1];
-            if (realRight <= 0) realRight = 0.01;
+            if (realRight == 0) realRight = 0.01;
             double correctionRight = targetRight / realRight;
             correctionRight = ((correctionRight - 1) * correctionFactor) + 1;
 
-            System.out.println(correctionLeft);
-            System.out.println(correctionRight);
+            System.out.println(
+                    "Target left: "
+                            + Double.toString(targetLeft)
+                            + ", Defecit: "
+                            + Double.toString(realLeft)
+                            + ", Raw correction: "
+                            + Double.toString(correctionLeft));
             // myDrive.tankDrive(correctionLeft, correctionRight);
             myDrive.tankDrive(0, 0);
         } else if (step < path.size()) {
@@ -244,18 +249,23 @@ public class Robot extends TimedRobot {
 
             double targetLeft = target[0] * substep;
             double realLeft = encoder1.getDistance();
-            if (realLeft <= 0) realLeft = 0.1;
+            if (realLeft == 0) realLeft = 0.01;
             double correctionLeft = targetLeft / realLeft;
             correctionLeft = ((correctionLeft - 1) * correctionFactor) + 1;
 
             double targetRight = target[1] * substep;
             double realRight = encoder2.getDistance();
-            if (realRight <= 0) realRight = 0.1;
+            if (realRight == 0) realRight = 0.01;
             double correctionRight = targetRight / realRight;
             correctionRight = ((correctionRight - 1) * correctionFactor) + 1;
 
-            System.out.println(correctionLeft);
-            System.out.println(correctionRight);
+            System.out.println(
+                    "Target left: "
+                            + Double.toString(targetLeft)
+                            + ", Defecit: "
+                            + Double.toString(realLeft)
+                            + ", Raw correction: "
+                            + Double.toString(correctionLeft));
             // myDrive.tankDrive(correctionLeft, correctionRight);
             myDrive.tankDrive(0, 0);
         } else {
