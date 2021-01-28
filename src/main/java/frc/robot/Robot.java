@@ -359,6 +359,7 @@ public class Robot extends TimedRobot {
                 path.add(new int[] {(int) leftDistance, (int) rightDistance});
             }
         }
+        System.out.println("Time: "+Long.toString(now-start)+" Encoders: "+Double.toString(encoder1.getDistance())+", "+Double.toString(encoder2.getDistance()));
     }
 
     @Override
