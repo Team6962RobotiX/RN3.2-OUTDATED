@@ -231,14 +231,14 @@ public class Robot extends TimedRobot {
             double correctionLeft = targetLeft / realLeft;
             if (Double.isInfinite(correctionLeft)) correctionLeft = 1;
             if (Double.isNaN(correctionLeft)) correctionLeft = 0;
-            correctionLeft = ((correctionLeft - 1) * correctionFactor) + 1;
+            correctionLeft *= correctionFactor;
 
             double targetRight = (next[1] - current[1]) * substep;
             double realRight = encoder2.getDistance() - current[1];
             double correctionRight = targetRight / realRight;
             if (Double.isInfinite(correctionRight)) correctionRight = 1;
             if (Double.isNaN(correctionRight)) correctionRight = 0;
-            correctionRight = ((correctionRight - 1) * correctionFactor) + 1;
+            correctionRight *= correctionFactor;
 
             System.out.println(
                     "Target left: "
@@ -257,14 +257,14 @@ public class Robot extends TimedRobot {
             double correctionLeft = targetLeft / realLeft;
             if (Double.isInfinite(correctionLeft)) correctionLeft = 1;
             if (Double.isNaN(correctionLeft)) correctionLeft = 0;
-            correctionLeft = ((correctionLeft - 1) * correctionFactor) + 1;
+            correctionLeft *= correctionFactor;
 
             double targetRight = target[1] * substep;
             double realRight = encoder2.getDistance();
             double correctionRight = targetRight / realRight;
             if (Double.isInfinite(correctionRight)) correctionRight = 1;
             if (Double.isNaN(correctionRight)) correctionRight = 0;
-            correctionRight = ((correctionRight - 1) * correctionFactor) + 1;
+            correctionRight *= correctionFactor;
 
             System.out.println(
                     "Target left: "
