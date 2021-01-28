@@ -288,8 +288,8 @@ public class Robot extends TimedRobot {
             pnext = parth.get(pindex+1);
         }
         if(pnext[0] != -1){
-            ldelta = (pnext[0]-pcurrent[0])/(pnext[2]-pcurrent[2])*15.7;
-            rdelta = (pnext[1]-pcurrent[1])/(pnext[2]-pcurrent[2])*15.7;
+            ldelta = (pnext[0]-pcurrent[0])/(pnext[2]-pcurrent[2])*15.7+0.25;
+            rdelta = (pnext[1]-pcurrent[1])/(pnext[2]-pcurrent[2])*15.7+0.25;
             System.out.println(Double.toString(ldelta)+" ,"+Double.toString(rdelta));
         }
         pindex++;
