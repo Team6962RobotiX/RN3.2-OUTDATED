@@ -336,7 +336,7 @@ public class Robot extends TimedRobot {
         myDrive.tankDrive(joystickLValue, joystickRValue);
 
         // Pathing Stuff
-        long now = (System.currentTimeMillis() - start);
+        long now = (System.currentTimeMillis() - start); //START IS SUBTRACTED FROM NOW YOU PILLOCK!!!!!!
 
         int step = (int) (now / clock); // index of path we're on or going through
         double substep = (now % clock) / clock; // % of the way through current path step
@@ -359,7 +359,7 @@ public class Robot extends TimedRobot {
                 path.add(new int[] {(int) leftDistance, (int) rightDistance});
             }
         }
-        System.out.println("Time: "+Long.toString(now-start)+" Encoders: "+Double.toString(encoder1.getDistance())+", "+Double.toString(encoder2.getDistance()));
+        System.out.println("Time: "+Long.toString(now)+" Encoders: "+Double.toString(encoder1.getDistance())+", "+Double.toString(encoder2.getDistance()));
     }
 
     @Override
