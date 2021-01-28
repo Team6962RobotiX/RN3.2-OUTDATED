@@ -352,8 +352,8 @@ public class Robot extends TimedRobot {
                         ((encoder2.getDistance() - path.get(step - 1)[1]) * substep)
                                 + path.get(step - 1)[1];
 
-                System.out.println(leftDistance);
-                System.out.println(rightDistance);
+                System.out.println(encoder1.getDistance());
+                System.out.println(path.get(step - 1)[0]);
 
                 path.add(new int[] {(int) leftDistance, (int) rightDistance});
             }
