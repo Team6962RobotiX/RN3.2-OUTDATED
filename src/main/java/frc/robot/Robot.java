@@ -75,7 +75,10 @@ public class Robot extends TimedRobot {
     double correctionFactor = 0.01;
     int clock = 100;
     long start;
-
+    
+    //Parth reinvents the wheel
+    ArrayList<double[]> parth = new ArrayList<double[]>();
+    
     @Override
     public void robotInit() {
 
@@ -359,7 +362,16 @@ public class Robot extends TimedRobot {
                 path.add(new int[] {(int) leftDistance, (int) rightDistance});
             }
         }
-        System.out.println("Time: "+Long.toString(now)+" Encoders: "+Double.toString(encoder1.getDistance())+", "+Double.toString(encoder2.getDistance()));
+        //Parth reinvents the wheel!
+        double[] temporary = { encoder1.getDistance(), encoder2.getDistance(), now }
+        if(parth.size() == 0 || (parth.get(parth.size()-1)[0] == temporary[0] && parth.get(parth.size()-1)[1] == temporary[1]) parth.add(temporary);
+    }
+    
+    @Override
+    public void disabledInit() {
+        for(int i = 0; i < parth.size(); i++){
+            System.out.println("Time: "+Double.toString(parth.get(i)[2])+" Encoders: "+Double.toString(parth.get(i)[0])+", "+Double.toString(parth.get(i)[1]));
+        }
     }
 
     @Override
