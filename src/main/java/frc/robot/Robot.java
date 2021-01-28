@@ -71,7 +71,7 @@ public class Robot extends TimedRobot {
     Mat source;
 
     // Autonomous
-    ArrayList<int[]> path = new ArrayList<int[]>();
+    ArrayList<double[]> path = new ArrayList<double[]>();
     double correctionFactor = 0.01;
     int clock = 100;
     long start;
@@ -220,9 +220,9 @@ public class Robot extends TimedRobot {
         double substep = (now % clock) / clock; // % of the way through current path step
 
         if (step < path.size() - 1) {
-            int[] current = path.get(step);
+            double[] current = path.get(step);
             System.out.println(current);
-            int[] next = path.get(step + 1);
+            double[] next = path.get(step + 1);
 
             double targetLeft = (next[0] - current[0]) * substep;
             double realLeft = encoder1.getDistance() - current[0];
@@ -241,7 +241,7 @@ public class Robot extends TimedRobot {
             // myDrive.tankDrive(correctionLeft, correctionRight);
             myDrive.tankDrive(0, 0);
         } else if (step < path.size()) {
-            int[] target = path.get(step);
+            double[] target = path.get(step);
 
             double targetLeft = target[0] * substep;
             double realLeft = encoder1.getDistance();
@@ -336,13 +336,15 @@ public class Robot extends TimedRobot {
         myDrive.tankDrive(joystickLValue, joystickRValue);
 
         // Pathing Stuff
-        long now = (System.currentTimeMillis() - start); //START IS SUBTRACTED FROM NOW YOU PILLOCK!!!!!!
+        long now = (System.currentTimeMillis() - start);
 
         int step = (int) (now / clock); // index of path we're on or going through
         double substep = (now % clock) / clock; // % of the way through current path step
+        System.out.println(
+                "Step: " + Long.toString(now / clock) + ", Substep: " + Double.toString(substep));
 
         if (path.size() <= step) {
-            if (step == 0) path.add(new int[] {0, 0});
+            if (step == 0) path.add(new double[] {0.0, 0.0});
             else {
                 // estimate position at time of step
                 double leftDistance =
@@ -352,14 +354,17 @@ public class Robot extends TimedRobot {
                         ((encoder2.getDistance() - path.get(step - 1)[1]) * substep)
                                 + path.get(step - 1)[1];
 
-                System.out.println(encoder1.getDistance());
-                System.out.println(path.get(step - 1)[0]);
-                System.out.println(substep);
+                System.out.println(
+                        "Left encoder: "
+                                + Double.toString(encoder1.getDistance())
+                                + ", Step: "
+                                + Integer.toString(step)
+                                + ", Substep: "
+                                + Double.toString(substep));
 
-                path.add(new int[] {(int) leftDistance, (int) rightDistance});
+                path.add(new double[] {leftDistance, rightDistance});
             }
         }
-        System.out.println("Time: "+Long.toString(now)+" Encoders: "+Double.toString(encoder1.getDistance())+", "+Double.toString(encoder2.getDistance()));
     }
 
     @Override
