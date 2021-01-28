@@ -339,7 +339,7 @@ public class Robot extends TimedRobot {
         long now = (System.currentTimeMillis() - start);
 
         int step = (int) (now / clock); // index of path we're on or going through
-        double substep = (now % clock) / clock; // % of the way through current path step
+        double substep = ((double) (now % clock)) / clock; // % of the way through current path step
         System.out.println(
                 "Step: " + Long.toString(now / clock) + ", Substep: " + Double.toString(substep));
 
