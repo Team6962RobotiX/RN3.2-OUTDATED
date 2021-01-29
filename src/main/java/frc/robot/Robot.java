@@ -277,7 +277,6 @@ public class Robot extends TimedRobot {
             }
         } else {
             //myDrive.tankDrive(0, 0);
-            continue;
         }
     }
 
