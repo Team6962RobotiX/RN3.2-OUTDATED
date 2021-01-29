@@ -225,15 +225,14 @@ public class Robot extends TimedRobot {
         double substep = ((double) (now % clock)) / clock; // % of the way through current path step
 
         if (step < path.size()) {
-            double[] prev;
-            double[] next;
+            int[] offsets = new int[] {0, 0};
             if (step + 1 < path.size()) {
-                prev = path.get(step);
-                next = path.get(step + 1);
+                offsets[1] = 1;
             } else if (step < path.size()) {
-                prev = path.get(step - 1);
-                next = path.get(step);
+                offsets[0] = -1;
             }
+            double[] prev = path.get(step + offsets[0]);
+            double[] next = path.get(step + offsets[1]);
 
             double[] encoders = new double[] {encoder1.getDistance(), encoder2.getDistance()};
             double[] tankvals = new double[] {0, 0};
@@ -269,8 +268,8 @@ public class Robot extends TimedRobot {
         if (pnext[0] != -1) {
             ldelta = (pnext[0] - pcurrent[0]) / (pnext[2] - pcurrent[2]) * 15.7;
             rdelta = (pnext[1] - pcurrent[1]) / (pnext[2] - pcurrent[2]) * 15.7;
-            ldelta = ldeta != 0 ? ldelta > 0 ? ldelta + 0.25 : ldelta - 0.25 : 0;
-            rdelta = rdeta != 0 ? rdelta > 0 ? rdelta + 0.25 : rdelta - 0.25 : 0;
+            ldelta = ldelta != 0 ? ldelta > 0 ? ldelta + 0.25 : ldelta - 0.25 : 0;
+            rdelta = rdelta != 0 ? rdelta > 0 ? rdelta + 0.25 : rdelta - 0.25 : 0;
             System.out.println(Double.toString(ldelta) + " ," + Double.toString(rdelta));
         }
         pindex++;
