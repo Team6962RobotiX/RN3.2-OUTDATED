@@ -263,28 +263,34 @@ public class Robot extends TimedRobot {
         double[] pnext = {-1, -1, -1};
         double ldelta;
         double rdelta;
+        System.out.println(pindex); 
         if (pindex + 1 < parth.size()) {
             pnext = parth.get(pindex + 1);
+        }else{
+            System.out.println("ERR - BAD PINDEX");
         }
         if (pnext[0] != -1) {
             ldelta = (pnext[0] - pcurrent[0]) / (pnext[2] - pcurrent[2]) * 15.7;
             rdelta = (pnext[1] - pcurrent[1]) / (pnext[2] - pcurrent[2]) * 15.7;
             ldelta = ldelta != 0 ? ldelta > 0 ? ldelta + 0.25 : ldelta - 0.25 : 0;
             rdelta = rdelta != 0 ? rdelta > 0 ? rdelta + 0.25 : rdelta - 0.25 : 0;
-            System.out.println(Double.toString(ldelta) + " ," + Double.toString(rdelta));
             if (Math.abs(encoder1.getDistance() - pcurrent[0]) > -0.05
                     && Math.abs(encoder1.getDistance() - pcurrent[0]) < 0.05) {
                 pindex++;
             }
-            if(ldelta > 0.5 || rdelta > 0.5){
-                pindex = parth.size()-1;
-                ldelta = 0;
-                rdelta = 0;
+            if(ldelta > 0.5){
+                ldelta = 0.5;
+            } 
+            if(rdelta > 0.5){
+                rdelta = 0.5;
             }
-            myDrive.tankDrive(ldelta,rdelta);
+            System.out.println(Double.toString(ldelta) + " ," + Double.toString(rdelta));
         } else {
-            myDrive.tankDrive(0, 0);
+            System.out.println("0, 0");
+            ldelta = 0;
+            rdelta = 0;
         }
+        myDrive.tankDrive(ldelta,rdelta);
     }
 
     @Override
