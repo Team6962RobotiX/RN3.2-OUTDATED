@@ -72,7 +72,8 @@ public class Robot extends TimedRobot {
 
     // Autonomous
     ArrayList<double[]> path = new ArrayList<double[]>();
-    double correctionFactor = 0.005; // roughly equivalent to 1% of top speed
+    double maxDeficit = 50;
+    double maxSpeed = 0.8;
     int clock = 100;
     long start;
 
@@ -223,74 +224,50 @@ public class Robot extends TimedRobot {
         int step = (int) Math.floor(now / clock); // index of path we're on or going through
         double substep = ((double) (now % clock)) / clock; // % of the way through current path step
 
-        if (step < path.size() - 1) {
-            double[] current = path.get(step);
-            double[] next = path.get(step + 1);
+        if (step < path.size()) {
+            if (step + 1 < path.size()) {
+                double[] prev = path.get(step);
+                double[] next = path.get(step + 1);
+            } else if (step < path.size()) {
+                double[] prev = path.get(step - 1);
+                double[] next = path.get(step);
+            }
 
-            double targetLeft = (next[0] - current[0]) * substep;
-            double realLeft = encoder1.getDistance() - current[0];
-            double correctionLeft = targetLeft / realLeft;
-            if (Double.isInfinite(correctionLeft)) correctionLeft = 1;
-            if (Double.isNaN(correctionLeft)) correctionLeft = 0;
-            correctionLeft *= correctionFactor;
+            double[] encoders = new double[] {encoder1.getDistance(), encoder2.getDistance()};
+            double[] tankvals = new double[] {0, 0};
 
-            double targetRight = (next[1] - current[1]) * substep;
-            double realRight = encoder2.getDistance() - current[1];
-            double correctionRight = targetRight / realRight;
-            if (Double.isInfinite(correctionRight)) correctionRight = 1;
-            if (Double.isNaN(correctionRight)) correctionRight = 0;
-            correctionRight *= correctionFactor;
-
-            System.out.println(
-                    "Target left: "
-                            + Double.toString(targetLeft)
-                            + ", Defecit: "
-                            + Double.toString(realLeft)
-                            + ", Raw correction: "
-                            + Double.toString(correctionLeft));
-            // myDrive.tankDrive(correctionLeft, correctionRight);
-            myDrive.tankDrive(0, 0);
-        } else if (step < path.size()) {
-            double[] target = path.get(step);
-
-            double targetLeft = target[0] * substep;
-            double realLeft = encoder1.getDistance();
-            double correctionLeft = targetLeft / realLeft;
-            if (Double.isInfinite(correctionLeft)) correctionLeft = 1;
-            if (Double.isNaN(correctionLeft)) correctionLeft = 0;
-            correctionLeft *= correctionFactor;
-
-            double targetRight = target[1] * substep;
-            double realRight = encoder2.getDistance();
-            double correctionRight = targetRight / realRight;
-            if (Double.isInfinite(correctionRight)) correctionRight = 1;
-            if (Double.isNaN(correctionRight)) correctionRight = 0;
-            correctionRight *= correctionFactor;
+            for (int i = 0; i < 2; i++) {
+                double target = prev[i] + (next[i] * substep);
+                double speed = (target - encoders[i]) / maxDeficit;
+                if (speed > maxSpeed) speed = maxSpeed;
+                if (speed < -maxSpeed) speed = -maxSpeed;
+                if (Double.isNaN(speed)) speed = 0;
+                tankvals[i] = speed;
+            }
 
             System.out.println(
-                    "Target left: "
-                            + Double.toString(targetLeft)
-                            + ", Defecit: "
-                            + Double.toString(realLeft)
-                            + ", Raw correction: "
-                            + Double.toString(correctionLeft));
-            // myDrive.tankDrive(correctionLeft, correctionRight);
+                    "Unreinvented speeds: "
+                            + Double.toString(tankvals[0])
+                            + ", "
+                            + Double.toString(tankvals[1]));
+            // myDrive.tankDrive(tankvals[0], tankvals[1]);
             myDrive.tankDrive(0, 0);
         } else {
             myDrive.tankDrive(0, 0);
         }
-        //Parth Reinvents the wheel!
+
+        // Parth Reinvents the wheel!
         double[] pcurrent = parth.get(pindex);
-        double[] pnext = {-1,-1,-1};
+        double[] pnext = {-1, -1, -1};
         double ldelta;
         double rdelta;
-        if(pindex+1 < parth.size()){
-            pnext = parth.get(pindex+1);
+        if (pindex + 1 < parth.size()) {
+            pnext = parth.get(pindex + 1);
         }
-        if(pnext[0] != -1){
-            ldelta = (pnext[0]-pcurrent[0])/(pnext[2]-pcurrent[2])*15.7+0.25;
-            rdelta = (pnext[1]-pcurrent[1])/(pnext[2]-pcurrent[2])*15.7+0.25;
-            System.out.println(Double.toString(ldelta)+" ,"+Double.toString(rdelta));
+        if (pnext[0] != -1) {
+            ldelta = (pnext[0] - pcurrent[0]) / (pnext[2] - pcurrent[2]) * 15.7 + 0.25;
+            rdelta = (pnext[1] - pcurrent[1]) / (pnext[2] - pcurrent[2]) * 15.7 + 0.25;
+            System.out.println(Double.toString(ldelta) + " ," + Double.toString(rdelta));
         }
         pindex++;
     }
@@ -373,7 +350,7 @@ public class Robot extends TimedRobot {
         double substep = ((double) (now % clock)) / clock; // % of the way through current path step
 
         if (path.size() <= step) {
-            if (step == 0) path.add(new double[] {0.0, 0.0});
+            if (step == 0) path.add(new double[] {0, 0});
             else {
                 // estimate position at time of step
                 double leftDistance =
