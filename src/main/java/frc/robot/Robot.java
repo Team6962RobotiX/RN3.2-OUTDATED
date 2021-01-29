@@ -72,8 +72,8 @@ public class Robot extends TimedRobot {
 
     // Autonomous
     ArrayList<double[]> path = new ArrayList<double[]>();
-    double maxDeficit = 50;
-    double maxSpeed = 0.8;
+    double maxDeficit = 30;
+    double maxSpeed = 0.5;
     int clock = 100;
     long start;
 
@@ -251,8 +251,8 @@ public class Robot extends TimedRobot {
                             + Double.toString(tankvals[0])
                             + ", "
                             + Double.toString(tankvals[1]));
-            // myDrive.tankDrive(tankvals[0], tankvals[1]);
-            myDrive.tankDrive(0, 0);
+            myDrive.tankDrive(tankvals[0], tankvals[1]);
+            // myDrive.tankDrive(0, 0);
         } else {
             myDrive.tankDrive(0, 0);
         }
