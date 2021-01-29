@@ -356,6 +356,8 @@ public class Robot extends TimedRobot {
         if (path.size() <= step) {
             if (step == 0) path.add(new double[] {0, 0});
             else {
+                System.out.println(
+                        "Indeces: " + Integer.toString(step) + "/" + Integer.toString(path.size()));
                 // estimate position at time of step
                 double leftDistance =
                         ((encoder1.getDistance() - path.get(step - 1)[0]) * substep)
