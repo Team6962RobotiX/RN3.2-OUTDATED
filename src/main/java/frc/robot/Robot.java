@@ -74,7 +74,7 @@ public class Robot extends TimedRobot {
     ArrayList<double[]> path = new ArrayList<double[]>();
     double maxDeficit = 30;
     double maxSpeed = 0.5;
-    int clock = 40;
+    int clock = 100;
     long start;
 
     // Parth reinvents the wheel
@@ -271,13 +271,13 @@ public class Robot extends TimedRobot {
             ldelta = ldelta != 0 ? ldelta > 0 ? ldelta + 0.25 : ldelta - 0.25 : 0;
             rdelta = rdelta != 0 ? rdelta > 0 ? rdelta + 0.25 : rdelta - 0.25 : 0;
             System.out.println(Double.toString(ldelta) + " ," + Double.toString(rdelta));
-            if(Math.abs(encoder1.getDistance()-pcurrent[0]) >-0.05 && Math.abs(encoder1.getDistance()-pcurrent[0]) < 0.05){
+            if (Math.abs(encoder1.getDistance() - pcurrent[0]) > -0.05
+                    && Math.abs(encoder1.getDistance() - pcurrent[0]) < 0.05) {
                 pindex++;
             }
-        }else{
-            myDrive.tankDrive(0,0);
+        } else {
+            myDrive.tankDrive(0, 0);
         }
-        
     }
 
     @Override
