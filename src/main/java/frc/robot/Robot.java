@@ -74,7 +74,7 @@ public class Robot extends TimedRobot {
     ArrayList<double[]> path = new ArrayList<double[]>();
     double maxDeficit = 30;
     double maxSpeed = 0.5;
-    int clock = 100;
+    int clock = 40;
     long start;
 
     // Parth reinvents the wheel
