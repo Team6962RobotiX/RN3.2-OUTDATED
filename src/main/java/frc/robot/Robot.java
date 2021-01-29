@@ -258,7 +258,7 @@ public class Robot extends TimedRobot {
         }
 
         // Parth Reinvents the wheel!
-        double[] pcurrent = parth.get(pindex);
+        /*double[] pcurrent = parth.get(pindex);
         double[] pnext = {-1, -1, -1};
         double ldelta;
         double rdelta;
@@ -273,6 +273,7 @@ public class Robot extends TimedRobot {
             System.out.println(Double.toString(ldelta) + " ," + Double.toString(rdelta));
         }
         pindex++;
+        */
     }
 
     @Override
@@ -372,7 +373,6 @@ public class Robot extends TimedRobot {
                 || (parth.get(parth.size() - 1)[0] != temporary[0]
                         && parth.get(parth.size() - 1)[1] != temporary[1])) {
             parth.add(temporary);
-            System.out.println("Added");
         }
     }
 
