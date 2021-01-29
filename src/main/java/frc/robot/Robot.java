@@ -275,8 +275,14 @@ public class Robot extends TimedRobot {
                     && Math.abs(encoder1.getDistance() - pcurrent[0]) < 0.05) {
                 pindex++;
             }
+            if(ldelta > 0.5 || rdelta > 0.5){
+                pindex = parth.size()-1;
+                ldelta = 0;
+                rdelta = 0;
+            }
+            myDrive.tankDrive(ldelta,rdelta);
         } else {
-            //myDrive.tankDrive(0, 0);
+            myDrive.tankDrive(0, 0);
         }
     }
 
