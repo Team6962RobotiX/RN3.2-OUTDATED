@@ -225,12 +225,14 @@ public class Robot extends TimedRobot {
         double substep = ((double) (now % clock)) / clock; // % of the way through current path step
 
         if (step < path.size()) {
+            double[] prev;
+            double[] next;
             if (step + 1 < path.size()) {
-                double[] prev = path.get(step);
-                double[] next = path.get(step + 1);
+                prev = path.get(step);
+                next = path.get(step + 1);
             } else if (step < path.size()) {
-                double[] prev = path.get(step - 1);
-                double[] next = path.get(step);
+                prev = path.get(step - 1);
+                next = path.get(step);
             }
 
             double[] encoders = new double[] {encoder1.getDistance(), encoder2.getDistance()};
