@@ -380,6 +380,13 @@ public class Robot extends TimedRobot {
             joystickLValue = joystickRValue;
         }
 
+        if (joystick1.getRawButton(2)) {
+            if (ballAngleValue[0] == 0) {
+                joystickLValue = 0.6;
+                joystickRValue = -0.6;
+            }
+        }
+
         // Actual Drive code
         myDrive.tankDrive(joystickLValue, joystickRValue);
 
@@ -414,11 +421,6 @@ public class Robot extends TimedRobot {
         // }
 
         // Camera stuff
-        if (joystick1.getRawButton(2)) {
-            if (!setBallAngleValue[0]) {
-                myDrive.tankDrive(0.3, -0.3);
-            }
-        }
     }
 
     @Override
