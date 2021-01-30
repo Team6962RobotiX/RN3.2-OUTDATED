@@ -76,6 +76,7 @@ public class Robot extends TimedRobot {
     double maxSpeed = 0.5 + 0.2;
     int clock = 100;
     long start;
+    double[] previous = {0, 0};
 
     // Parth reinvents the wheel
     ArrayList<double[]> parth = new ArrayList<double[]>();
@@ -185,7 +186,8 @@ public class Robot extends TimedRobot {
                                                 distCoeffs);
                                 setBallAngleValue[0] = true;
                                 SmartDashboard.putNumber("ballAngleValue", ballAngleValue[0]);
-                                SmartDashboard.putBoolean("setBallAngleValue", setBallAngleValue[0]);
+                                SmartDashboard.putBoolean(
+                                        "setBallAngleValue", setBallAngleValue[0]);
                                 System.gc();
                             }
                         })
@@ -251,7 +253,8 @@ public class Robot extends TimedRobot {
                 if (speed > maxSpeed) speed = maxSpeed;
                 if (speed < -maxSpeed) speed = -maxSpeed;
                 if (Double.isNaN(speed)) speed = 0;
-                tankvals[i] = speed;
+                // lerp it
+                tankvals[i] = ((speed - previous[i]) * 0.3) + previous[i];
             }
 
             System.out.println(
@@ -318,7 +321,7 @@ public class Robot extends TimedRobot {
 
     @Override
     public void teleopPeriodic() {
-        
+
         // Turning speed limit
         double limitTurnSpeed = 0.75; // EDITABLE VALUE
 
@@ -409,10 +412,10 @@ public class Robot extends TimedRobot {
         //                 && parth.get(parth.size() - 1)[1] != temporary[1])) {
         //     parth.add(temporary);
         // }
-        
+
         // Camera stuff
-        if(joystick1.getRawButton(2)) {
-            if(!setBallAngleValue[0]) {
+        if (joystick1.getRawButton(2)) {
+            if (!setBallAngleValue[0]) {
                 myDrive.tankDrive(0.3, -0.3);
             }
         }
