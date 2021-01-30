@@ -244,7 +244,7 @@ public class Robot extends TimedRobot {
                         "Target: "
                                 + Double.toString(target)
                                 + ", current: "
-                                + Double.toString(econders[i]));
+                                + Double.toString(encoders[i]));
                 if (speed > maxSpeed) speed = maxSpeed;
                 if (speed < -maxSpeed) speed = -maxSpeed;
                 if (Double.isNaN(speed)) speed = 0;
