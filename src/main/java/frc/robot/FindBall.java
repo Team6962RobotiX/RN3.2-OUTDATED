@@ -128,6 +128,9 @@ public class FindBall {
 		if(contours.size() == 0) {
 			return null;
 		}
+		if(circularity(contours.get(0)) <= 0.5) {
+			return null;
+		}
 		System.out.println(circularity(contours.get(0)));
 		float[] radius = new float[1];
 		Point center = new Point();
