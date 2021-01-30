@@ -270,7 +270,7 @@ public class Robot extends TimedRobot {
         }
 
         // Parth Reinvents the wheel!
-        System.out.println(parth.get(pindex)[0])+" ,"+Double.toString(parth.get(pindex)[1]));
+        System.out.println(Double.toString(parth.get(pindex)[0])+" ,"+Double.toString(parth.get(pindex)[1]));
         myDrive.tankDrive(parth.get(pindex)[0], parth.get(pindex)[1]);
         pindex++;
     }
