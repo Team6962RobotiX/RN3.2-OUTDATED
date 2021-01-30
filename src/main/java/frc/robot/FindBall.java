@@ -110,7 +110,7 @@ public class FindBall {
 		Mat blurred = new Mat(), hsv = new Mat(mat.rows(), mat.cols(), CvType.CV_8UC2), mask = new Mat();
 		Imgproc.GaussianBlur(mat, blurred, new Size(11, 11), 0);
 		Imgproc.cvtColor(blurred, hsv, Imgproc.COLOR_BGR2HSV);
-		Core.inRange(hsv, new Scalar(20, 100, 50), new Scalar(30, 255, 255), mask);
+		Core.inRange(hsv, new Scalar(40, 100, 50), new Scalar(60, 255, 255), mask);
 		Mat element = Imgproc.getStructuringElement(Imgproc.MORPH_RECT, new Size(3, 3));
 		Imgproc.erode(mask, mask, element, new Point(), 2);
 		Imgproc.dilate(mask, mask, element, new Point(), 2);
@@ -127,7 +127,7 @@ public class FindBall {
 			return null;
 		}
 		System.out.println("Area Percentage: " + Double.toString(circularity(contours.get(0))));
-		if(circularity(contours.get(0)) <= 0.7) {
+		if(circularity(contours.get(0)) <= 0.45) {
 			return null;
 		}
 		float[] radius = new float[1];
@@ -194,7 +194,7 @@ public class FindBall {
 		if(contours.size() == 0) {
 			return mat; 
 		}
-		if(circularity(contours.get(0)) <= 0.7) {
+		if(circularity(contours.get(0)) <= 0.45) {
 			return null;
 		}
 		float[] radius = new float[1];
