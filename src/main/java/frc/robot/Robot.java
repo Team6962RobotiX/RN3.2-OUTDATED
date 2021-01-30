@@ -221,77 +221,89 @@ public class Robot extends TimedRobot {
     public void autonomousPeriodic() {
         long now = (System.currentTimeMillis() - start);
 
-        // int step = (int) Math.floor(now / clock); // index of path we're on or going through
-        // double substep = ((double) (now % clock)) / clock; // % of the way through current path
-        // step
+        int step = (int) Math.floor(now / clock); // index of path we're on or going through
+        double substep = ((double) (now % clock)) / clock; // % of the way through current path
 
-        // if (step < path.size()) {
-        //     int[] offsets = new int[] {0, 0};
-        //     if (step + 1 < path.size()) {
-        //         offsets[1] = 1;
-        //     } else if (step < path.size()) {
-        //         offsets[0] = -1;
-        //     }
-        //     double[] prev = path.get(step + offsets[0]);
-        //     double[] next = path.get(step + offsets[1]);
+        if (step < path.size()) {
+            int[] offsets = new int[] {0, 0};
+            if (step + 1 < path.size()) {
+                offsets[1] = 1;
+            } else if (step < path.size()) {
+                offsets[0] = -1;
+            }
+            double[] prev = path.get(step + offsets[0]);
+            double[] next = path.get(step + offsets[1]);
 
-        //     double[] encoders = new double[] {encoder1.getDistance(), encoder2.getDistance()};
-        //     double[] tankvals = new double[] {0, 0};
+            double[] encoders = new double[] {encoder1.getDistance(), encoder2.getDistance()};
+            double[] tankvals = new double[] {0, 0};
 
-        //     for (int i = 0; i < 2; i++) {
-        //         double target = prev[i] + (next[i] * substep);
-        //         double speed = (target - encoders[i]) / maxDeficit;
-        //         if (speed > maxSpeed) speed = maxSpeed;
-        //         if (speed < -maxSpeed) speed = -maxSpeed;
-        //         if (Double.isNaN(speed)) speed = 0;
-        //         tankvals[i] = speed;
-        //     }
+            for (int i = 0; i < 2; i++) {
+                double target = prev[i] + (next[i] * substep);
+                double speed = (target - encoders[i]) / maxDeficit;
+                System.out.println(
+                        "Target: "
+                                + Double.toString(target)
+                                + ", current: "
+                                + Double.toString(econders[i]));
+                if (speed > maxSpeed) speed = maxSpeed;
+                if (speed < -maxSpeed) speed = -maxSpeed;
+                if (Double.isNaN(speed)) speed = 0;
+                tankvals[i] = speed;
+            }
 
-        //     System.out.println(
-        //             "Unreinvented speeds: "
-        //                     + Double.toString(tankvals[0])
-        //                     + ", "
-        //                     + Double.toString(tankvals[1]));
-        //     myDrive.tankDrive(tankvals[0], tankvals[1]);
-        //     // myDrive.tankDrive(0, 0);
-        // } else {
-        //     myDrive.tankDrive(0, 0);
-        // }
+            System.out.println(
+                    "Unreinvented speeds: "
+                            + Double.toString(tankvals[0])
+                            + ", "
+                            + Double.toString(tankvals[1]));
+            myDrive.tankDrive(tankvals[0], tankvals[1]);
+            // myDrive.tankDrive(0, 0);
+        } else {
+            myDrive.tankDrive(0, 0);
+        }
 
         // Parth Reinvents the wheel!
-        /*double[] pcurrent = parth.get(pindex);
-        double[] pnext = {-1, -1, -1};
-        double ldelta;
-        double rdelta;
-        System.out.println(pindex); 
-        if (pindex + 1 < parth.size()) {
-            pnext = parth.get(pindex + 1);
-        }else{
-            System.out.println("ERR - BAD PINDEX");
-        }
-        if (pnext[0] != -1) {
-            ldelta = (pnext[0] - pcurrent[0]) / (pnext[2] - pcurrent[2]) * 15.7;
-            rdelta = (pnext[1] - pcurrent[1]) / (pnext[2] - pcurrent[2]) * 15.7;
-            ldelta = ldelta != 0 ? ldelta > 0 ? ldelta + 0.25 : ldelta - 0.25 : 0;
-            rdelta = rdelta != 0 ? rdelta > 0 ? rdelta + 0.25 : rdelta - 0.25 : 0;
-            if (Math.abs(encoder1.getDistance() - pcurrent[0]) < 0.1 || Math.abs(encoder2.getDistance() - pcurrent[1]) < 0.1) {
-                pindex++;
-            }
-            if(ldelta > 0.5){
-                ldelta = 0.5;
-            } 
-            if(rdelta > 0.5){
-                rdelta = 0.5;
-            }
-            System.out.println("Left: "+Double.toString(pcurrent[0]) + " : " + Double.toString(encoder1.getDistance()));
-            System.out.println("Right: "+Double.toString(pcurrent[1]) + " : " + Double.toString(encoder2.getDistance()));
-        } else {
-            System.out.println("0, 0");
-            ldelta = 0;
-            rdelta = 0;
-        }
-        myDrive.tankDrive(ldelta,rdelta);
-        */
+        // double[] pcurrent = parth.get(pindex);
+        // double[] pnext = {-1, -1, -1};
+        // double ldelta;
+        // double rdelta;
+        // System.out.println(pindex);
+        // if (pindex + 1 < parth.size()) {
+        //     pnext = parth.get(pindex + 1);
+        // } else {
+        //     System.out.println("ERR - BAD PINDEX");
+        // }
+        // if (pnext[0] != -1) {
+        //     ldelta = (pnext[0] - pcurrent[0]) / (pnext[2] - pcurrent[2]) * 15.7;
+        //     rdelta = (pnext[1] - pcurrent[1]) / (pnext[2] - pcurrent[2]) * 15.7;
+        //     ldelta = ldelta != 0 ? ldelta > 0 ? ldelta + 0.25 : ldelta - 0.25 : 0;
+        //     rdelta = rdelta != 0 ? rdelta > 0 ? rdelta + 0.25 : rdelta - 0.25 : 0;
+        //     if (Math.abs(encoder1.getDistance() - pcurrent[0]) < 0.1
+        //             || Math.abs(encoder2.getDistance() - pcurrent[1]) < 0.1) {
+        //         pindex++;
+        //     }
+        //     if (ldelta > 0.5) {
+        //         ldelta = 0.5;
+        //     }
+        //     if (rdelta > 0.5) {
+        //         rdelta = 0.5;
+        //     }
+        //     System.out.println(
+        //             "Left: "
+        //                     + Double.toString(pcurrent[0])
+        //                     + " : "
+        //                     + Double.toString(encoder1.getDistance()));
+        //     System.out.println(
+        //             "Right: "
+        //                     + Double.toString(pcurrent[1])
+        //                     + " : "
+        //                     + Double.toString(encoder2.getDistance()));
+        // } else {
+        //     System.out.println("0, 0");
+        //     ldelta = 0;
+        //     rdelta = 0;
+        // }
+        // myDrive.tankDrive(ldelta, rdelta);
     }
 
     @Override
@@ -368,34 +380,32 @@ public class Robot extends TimedRobot {
         // Pathing Stuff
         long now = (System.currentTimeMillis() - start);
 
-        // int step = (int) (now / clock); // index of path we're on or going through
-        // double substep = ((double) (now % clock)) / clock; // % of the way through current path
-        // step
+        int step = (int) (now / clock); // index of path we're on or going through
+        double substep = ((double) (now % clock)) / clock; // % of the way through current path
 
-        // if (path.size() <= step) {
-        //     if (step == 0) path.add(new double[] {0, 0});
-        //     else {
-        //         System.out.println(
-        //                 "Indeces: " + Integer.toString(step) + "/" +
-        // Integer.toString(path.size()));
-        //         // estimate position at time of step
-        //         double leftDistance =
-        //                 ((encoder1.getDistance() - path.get(step - 1)[0]) * substep)
-        //                         + path.get(step - 1)[0];
-        //         double rightDistance =
-        //                 ((encoder2.getDistance() - path.get(step - 1)[1]) * substep)
-        //                         + path.get(step - 1)[1];
+        if (path.size() <= step) {
+            if (step == 0) path.add(new double[] {0, 0});
+            else {
+                System.out.println(
+                        "Indeces: " + Integer.toString(step) + "/" + Integer.toString(path.size()));
+                // estimate position at time of step
+                double leftDistance =
+                        ((encoder1.getDistance() - path.get(step - 1)[0]) * substep)
+                                + path.get(step - 1)[0];
+                double rightDistance =
+                        ((encoder2.getDistance() - path.get(step - 1)[1]) * substep)
+                                + path.get(step - 1)[1];
 
-        //         path.add(new double[] {leftDistance, rightDistance});
-        //     }
-        // }
-        // Parth reinvents the wheel!
-        double[] temporary = {encoder1.getDistance(), encoder2.getDistance(), now};
-        if (parth.size() == 0
-                || (parth.get(parth.size() - 1)[0] != temporary[0]
-                        && parth.get(parth.size() - 1)[1] != temporary[1])) {
-            parth.add(temporary);
+                path.add(new double[] {leftDistance, rightDistance});
+            }
         }
+        // Parth reinvents the wheel!
+        // double[] temporary = {encoder1.getDistance(), encoder2.getDistance(), now};
+        // if (parth.size() == 0
+        //         || (parth.get(parth.size() - 1)[0] != temporary[0]
+        //                 && parth.get(parth.size() - 1)[1] != temporary[1])) {
+        //     parth.add(temporary);
+        // }
     }
 
     @Override
