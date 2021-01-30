@@ -255,6 +255,7 @@ public class Robot extends TimedRobot {
                 if (Double.isNaN(speed)) speed = 0;
                 // lerp it
                 tankvals[i] = ((speed - previous[i]) * 0.3) + previous[i];
+                previous[i] = tankvals[i];
             }
 
             System.out.println(
