@@ -118,7 +118,7 @@ public class FindBall {
 			float[] cRadius = new float[1];
 			Point cCenter = new Point();
 			Imgproc.minEnclosingCircle(new MatOfPoint2f(contour.toArray()), cCenter, cRadius);
-			double approxArea = cRadius * cRadius * Math.PI;
+			double approxArea = cRadius[0] * cRadius[0] * Math.PI;
 			double contourArea = Imgproc.contourArea(contour);
 			System.out.println(contourArea / approxArea);
 			if(contourArea / approxArea >= 0.9) { result.add(contour); }
@@ -187,7 +187,7 @@ public class FindBall {
 			float[] cRadius = new float[1];
 			Point cCenter = new Point();
 			Imgproc.minEnclosingCircle(new MatOfPoint2f(contour.toArray()), cCenter, cRadius);
-			double approxArea = cRadius * cRadius * Math.PI;
+			double approxArea = cRadius[0] * cRadius[0] * Math.PI;
 			double contourArea = Imgproc.contourArea(contour);
 			if(contourArea / approxArea >= 0.9) { contours2.add(contour); }
 		}
