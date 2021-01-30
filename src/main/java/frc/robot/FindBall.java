@@ -184,17 +184,16 @@ public class FindBall {
 			}
 		});
 		Imgproc.drawContours(result, contours, 0, new Scalar(255, 255, 255));
-		return hsv;
-		//return result;
+		return result;
 	}
 
 	public static double getBallValue(Mat mat, int width, int height, Mat cameraMatrix, Mat distCoeffs) {
 		if(mat.empty()){
-			return -3;
+			return 0.0;
 		}
 		Point3 ball = findBall(mat, width, height, cameraMatrix, distCoeffs);
 		if (ball == null){
-			return 0;
+			return 0.0;
 		}
 		ball.x -= FindBall.X_OFFSET;
 		ball.y -= FindBall.Y_OFFSET;
@@ -202,7 +201,7 @@ public class FindBall {
 		if(ball != null && ball.z != 0) {
 			return Math.atan(ball.x / ball.z);
 		}
-		return -2d;
+		return 0.0;
 	}
 
 	/*public static void main(String[] args) {
