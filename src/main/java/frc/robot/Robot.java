@@ -270,47 +270,9 @@ public class Robot extends TimedRobot {
         }
 
         // Parth Reinvents the wheel!
-        // double[] pcurrent = parth.get(pindex);
-        // double[] pnext = {-1, -1, -1};
-        // double ldelta;
-        // double rdelta;
-        // System.out.println(pindex);
-        // if (pindex + 1 < parth.size()) {
-        //     pnext = parth.get(pindex + 1);
-        // } else {
-        //     System.out.println("ERR - BAD PINDEX");
-        // }
-        // if (pnext[0] != -1) {
-        //     ldelta = (pnext[0] - pcurrent[0]) / (pnext[2] - pcurrent[2]) * 15.7;
-        //     rdelta = (pnext[1] - pcurrent[1]) / (pnext[2] - pcurrent[2]) * 15.7;
-        //     ldelta = ldelta != 0 ? ldelta > 0 ? ldelta + 0.25 : ldelta - 0.25 : 0;
-        //     rdelta = rdelta != 0 ? rdelta > 0 ? rdelta + 0.25 : rdelta - 0.25 : 0;
-        //     if (Math.abs(encoder1.getDistance() - pcurrent[0]) < 0.1
-        //             || Math.abs(encoder2.getDistance() - pcurrent[1]) < 0.1) {
-        //         pindex++;
-        //     }
-        //     if (ldelta > 0.5) {
-        //         ldelta = 0.5;
-        //     }
-        //     if (rdelta > 0.5) {
-        //         rdelta = 0.5;
-        //     }
-        //     System.out.println(
-        //             "Left: "
-        //                     + Double.toString(pcurrent[0])
-        //                     + " : "
-        //                     + Double.toString(encoder1.getDistance()));
-        //     System.out.println(
-        //             "Right: "
-        //                     + Double.toString(pcurrent[1])
-        //                     + " : "
-        //                     + Double.toString(encoder2.getDistance()));
-        // } else {
-        //     System.out.println("0, 0");
-        //     ldelta = 0;
-        //     rdelta = 0;
-        // }
-        // myDrive.tankDrive(ldelta, rdelta);
+        System.out.println(parth.get(pindex)[0])+" ,"+Double.toString(parth.get(pindex)[1]));
+        myDrive.tankDrive(parth.get(pindex)[0], parth.get(pindex)[1]);
+        pindex++;
     }
 
     @Override
@@ -383,8 +345,11 @@ public class Robot extends TimedRobot {
 
         if (joystick1.getRawButton(2)) {
             if (ballAngleValue[0] == 0) {
-                joystickLValue = 0.6;
-                joystickRValue = -0.6;
+                joystickLValue = 0.7;
+                joystickRValue = -0.7;
+            }else{
+                joystickLValue = 0.5;
+                joystickRValue = 0.5;
             }
         }
 
@@ -414,14 +379,9 @@ public class Robot extends TimedRobot {
             }
         }
         // Parth reinvents the wheel!
-        // double[] temporary = {encoder1.getDistance(), encoder2.getDistance(), now};
-        // if (parth.size() == 0
-        //         || (parth.get(parth.size() - 1)[0] != temporary[0]
-        //                 && parth.get(parth.size() - 1)[1] != temporary[1])) {
-        //     parth.add(temporary);
-        // }
-
-        // Camera stuff
+        double[] temporary = {joystickLValue,joystickRValue,encoder1.getDistance(), encoder2.getDistance(), now};
+        parth.add(temporary);
+        
     }
 
     @Override
