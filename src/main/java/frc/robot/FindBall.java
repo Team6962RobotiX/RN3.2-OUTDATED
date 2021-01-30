@@ -120,6 +120,7 @@ public class FindBall {
 			Imgproc.minEnclosingCircle(new MatOfPoint2f(contour.toArray()), cCenter, cRadius);
 			double approxArea = cRadius * cRadius * Math.PI;
 			double contourArea = Imgproc.contourArea(contour);
+			System.out.println(contourArea / approxArea);
 			if(contourArea / approxArea >= 0.9) { result.add(contour); }
 		}
 		Collections.sort(result, new Comparator<MatOfPoint>() {
