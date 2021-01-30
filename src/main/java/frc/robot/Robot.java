@@ -223,7 +223,7 @@ public class Robot extends TimedRobot {
     @Override
     public void autonomousPeriodic() {
         long now = (System.currentTimeMillis() - start);
-
+        /*
         int step = (int) Math.floor(now / clock); // index of path we're on or going through
         double substep = ((double) (now % clock)) / clock; // % of the way through current path
 
@@ -268,10 +268,9 @@ public class Robot extends TimedRobot {
         } else {
             myDrive.tankDrive(0, 0);
         }
-
+        */
         // Parth Reinvents the wheel!
-        System.out.println(Double.toString(parth.get(pindex)[0])+" ,"+Double.toString(parth.get(pindex)[1]));
-        myDrive.tankDrive(parth.get(pindex)[0], parth.get(pindex)[1]);
+        if(pindex < parth.size()) myDrive.tankDrive(parth.get(pindex)[0], parth.get(pindex)[1]);
         pindex++;
     }
 
@@ -358,7 +357,7 @@ public class Robot extends TimedRobot {
 
         // Pathing Stuff
         long now = (System.currentTimeMillis() - start);
-
+        /*
         int step = (int) (now / clock); // index of path we're on or going through
         double substep = ((double) (now % clock)) / clock; // % of the way through current path
 
@@ -377,7 +376,7 @@ public class Robot extends TimedRobot {
 
                 path.add(new double[] {leftDistance, rightDistance});
             }
-        }
+        }*/
         // Parth reinvents the wheel!
         double[] temporary = {joystickLValue,joystickRValue,encoder1.getDistance(), encoder2.getDistance(), now};
         parth.add(temporary);
