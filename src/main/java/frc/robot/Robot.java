@@ -274,8 +274,7 @@ public class Robot extends TimedRobot {
             rdelta = (pnext[1] - pcurrent[1]) / (pnext[2] - pcurrent[2]) * 15.7;
             ldelta = ldelta != 0 ? ldelta > 0 ? ldelta + 0.25 : ldelta - 0.25 : 0;
             rdelta = rdelta != 0 ? rdelta > 0 ? rdelta + 0.25 : rdelta - 0.25 : 0;
-            if (Math.abs(encoder1.getDistance() - pcurrent[0]) > -0.05
-                    && Math.abs(encoder1.getDistance() - pcurrent[0]) < 0.05) {
+            if (Math.abs(encoder1.getDistance() - pcurrent[0]) < 0.1 || encoder2.getDistance() - pcurrent[1]) < 0.1) {
                 pindex++;
             }
             if(ldelta > 0.5){
