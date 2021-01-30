@@ -185,6 +185,7 @@ public class Robot extends TimedRobot {
                                                 distCoeffs);
                                 setBallAngleValue[0] = true;
                                 SmartDashboard.putNumber("ballAngleValue", ballAngleValue[0]);
+                                SmartDashboard.putNumber("setBallAngleValue", setBallAngleValue[0]);
                                 System.gc();
                             }
                         })
@@ -317,7 +318,7 @@ public class Robot extends TimedRobot {
 
     @Override
     public void teleopPeriodic() {
-
+        
         // Turning speed limit
         double limitTurnSpeed = 0.75; // EDITABLE VALUE
 
@@ -408,6 +409,13 @@ public class Robot extends TimedRobot {
         //                 && parth.get(parth.size() - 1)[1] != temporary[1])) {
         //     parth.add(temporary);
         // }
+        
+        // Camera stuff
+        if(joystick1.getRawButton(2)) {
+            if(!setBallAngleValue[0]) {
+                myDrive.tankDrive(0.3, -0.3);
+            }
+        }
     }
 
     @Override
