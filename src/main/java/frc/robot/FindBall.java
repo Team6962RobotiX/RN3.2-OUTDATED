@@ -181,14 +181,26 @@ public class FindBall {
 			//System.out.println("Empty contours");
 			return mat; 
 		}
+		List<MatOfPoint> contours2 = new ArrayList<MatOfPoint>();
+		for(MatOfPoint contour: contours) {
+			float[] cRadius = new float[1];
+			Point cCenter = new Point();
+			Imgproc.minEnclosingCircle(new MatOfPoint2f(contour.toArray()), cCenter, cRadius);
+			double approxArea = cRadius * cRadius * Math.PI;
+			double contourArea = Imgproc.contourArea(contour);
+			if(contourArea / approxArea >= 0.9) { contours2.add(contour); }
+		}
+		if(contours2.size() == 0) {
+			return mat;
+		}
 		Mat result = new Mat();
 		mat.copyTo(result);
-		Collections.sort(contours, new Comparator<MatOfPoint>() {
+		Collections.sort(contours2, new Comparator<MatOfPoint>() {
 			@Override public int compare(final MatOfPoint m1, final MatOfPoint m2) {
 				return (int)(Imgproc.contourArea(m2) - Imgproc.contourArea(m1));
 			}
 		});
-		Imgproc.drawContours(result, contours, 0, new Scalar(255, 255, 255));
+		Imgproc.drawContours(result, contours2, 0, new Scalar(255, 255, 255));
 		return result;
 	}
 
