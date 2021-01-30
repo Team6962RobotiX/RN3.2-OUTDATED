@@ -140,7 +140,7 @@ public class FindBall {
 		   Imgproc.arcLength(new MatOfPoint2f(contours.get(0).toArray()), true) / (radius[0] * radius[0] * Math.PI) > 1.0) {
 			return null;
 		}
-		System.out.println("Perimeter Percentage: " + Double.toString((Imgproc.arcLength(new MatOfPoint2f(contours.get(0).toArray()), true) / (radius[0] * radius[0] * Math.PI)));
+		System.out.println("Perimeter Percentage: " + Double.toString((Imgproc.arcLength(new MatOfPoint2f(contours.get(0).toArray()), true) / (radius[0] * radius[0] * Math.PI))));
 		Moments moments = Imgproc.moments(contours.get(0));
 		if(moments.get_m00() == 0) {
 			//System.out.println("moments.get_m00() == 0");
