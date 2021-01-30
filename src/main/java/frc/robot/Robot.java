@@ -72,8 +72,8 @@ public class Robot extends TimedRobot {
 
     // Autonomous
     ArrayList<double[]> path = new ArrayList<double[]>();
-    double maxDeficit = 30;
-    double maxSpeed = 0.3 + 0.2;
+    double maxDeficit = 50;
+    double maxSpeed = 0.5 + 0.2;
     int clock = 100;
     long start;
 
