@@ -113,15 +113,24 @@ public class FindBall {
 			//System.out.println("Empty contours");
 			return null; 
 		}
-		Collections.sort(contours, new Comparator<MatOfPoint>() {
+		List<MatOfPoint> result = new ArrayList<MatOfPoint>();
+		for(MatOfPoint contour: contours) {
+			float[] cRadius = new float[1];
+			Point cCenter = new Point();
+			Imgproc.minEnclosingCircle(new MatOfPoint2f(contour.toArray()), cCenter, cRadius);
+			double approxArea = cRadius * cRadius * Math.PI;
+			double contourArea = Imgproc.contourArea(contour);
+			if(contourArea / approxArea >= 0.9) { result.add(contour); }
+		}
+		Collections.sort(result, new Comparator<MatOfPoint>() {
 			@Override public int compare(final MatOfPoint m1, final MatOfPoint m2) {
 				return (int)(Imgproc.contourArea(m2) - Imgproc.contourArea(m1));
 			}
 		});
 		float[] radius = new float[1];
 		Point center = new Point();
-		Imgproc.minEnclosingCircle(new MatOfPoint2f(contours.get(0).toArray()), center, radius);
-		Moments moments = Imgproc.moments(contours.get(0));
+		Imgproc.minEnclosingCircle(new MatOfPoint2f(result.get(0).toArray()), center, radius);
+		Moments moments = Imgproc.moments(result.get(0));
 		if(moments.get_m00() == 0) {
 			//System.out.println("moments.get_m00() == 0");
 			return null;
@@ -174,10 +183,6 @@ public class FindBall {
 		}
 		Mat result = new Mat();
 		mat.copyTo(result);
-		if(contours.size() == 0) {
-			//System.out.println("Empty contours");
-			return mat; 
-		}
 		Collections.sort(contours, new Comparator<MatOfPoint>() {
 			@Override public int compare(final MatOfPoint m1, final MatOfPoint m2) {
 				return (int)(Imgproc.contourArea(m2) - Imgproc.contourArea(m1));
