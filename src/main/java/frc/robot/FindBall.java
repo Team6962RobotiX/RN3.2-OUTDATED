@@ -151,11 +151,11 @@ public class FindBall {
 
 	public static Mat displayContours(Mat mat, int width, int height, Mat cameraMatrix, Mat distCoeffs) {
 		if(cameraMatrix == null || cameraMatrix.empty() || distCoeffs == null || distCoeffs.empty()) {
-			return null;
+			return mat;
 		}
 		if (mat == null || mat.empty()) {
 			//System.out.println("mat is empty");
-			return null;
+			return mat;
 		}
 		Mat blurred = new Mat(), hsv = new Mat(mat.rows(), mat.cols(), CvType.CV_8UC2), mask = new Mat();
 		Imgproc.GaussianBlur(mat, blurred, new Size(11, 11), 0);
@@ -170,13 +170,13 @@ public class FindBall {
 		Imgproc.findContours(temp, contours, new Mat(), Imgproc.RETR_EXTERNAL, Imgproc.CHAIN_APPROX_SIMPLE);
 		if(contours.size() == 0) {
 			//System.out.println("Empty contours");
-			return null; 
+			return mat; 
 		}
 		Mat result = new Mat();
 		mat.copyTo(result);
 		if(contours.size() == 0) {
 			//System.out.println("Empty contours");
-			return null; 
+			return mat; 
 		}
 		Collections.sort(contours, new Comparator<MatOfPoint>() {
 			@Override public int compare(final MatOfPoint m1, final MatOfPoint m2) {
