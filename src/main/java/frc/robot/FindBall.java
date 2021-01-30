@@ -135,7 +135,8 @@ public class FindBall {
 		float[] radius = new float[1];
 		Point center = new Point();
 		Imgproc.minEnclosingCircle(new MatOfPoint2f(contours.get(0).toArray()), center, radius);
-		if(Imgproc.arcLength(new MatOfPoint2f(contours.get(0).toArray()), true) / (radius[0] * radius[0] * Math.PI) <= 0.9 ||
+		if(radius[0] == 0){return null;}
+		if(Imgproc.arcLength(new MatOfPoint2f(contours.get(0).toArray()), true) / (radius[0] * radius[0] * Math.PI) <= 0.8 ||
 		   Imgproc.arcLength(new MatOfPoint2f(contours.get(0).toArray()), true) / (radius[0] * radius[0] * Math.PI) > 1.0) {
 			return null;
 		}
@@ -200,7 +201,8 @@ public class FindBall {
 		float[] radius = new float[1];
 		Point center = new Point();
 		Imgproc.minEnclosingCircle(new MatOfPoint2f(contours.get(0).toArray()), center, radius);
-		if(Imgproc.arcLength(new MatOfPoint2f(contours.get(0).toArray()), true) / (radius[0] * radius[0] * Math.PI) <= 0.9 ||
+		if(radius[0] == 0){return null;}
+		if(Imgproc.arcLength(new MatOfPoint2f(contours.get(0).toArray()), true) / (radius[0] * radius[0] * Math.PI) <= 0.8 ||
 		   Imgproc.arcLength(new MatOfPoint2f(contours.get(0).toArray()), true) / (radius[0] * radius[0] * Math.PI) > 1.0) {
 			return null;
 		}
