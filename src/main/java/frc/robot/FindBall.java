@@ -94,7 +94,6 @@ public class FindBall {
 		Imgproc.minEnclosingCircle(new MatOfPoint2f(contour.toArray()), cCenter, cRadius);
 		double approxArea = cRadius[0] * cRadius[0] * Math.PI;
 		double contourArea = Imgproc.contourArea(contour);
-		System.out.println(contourArea / approxArea);
 		if(approxArea == 0) { return 0.0; }
 		return contourArea / approxArea;
 	}
@@ -106,7 +105,6 @@ public class FindBall {
 		
 		if (mat == null || mat.empty()) {
 			//System.out.println("mat is empty");
-
 			return null;
 		}
 		Mat blurred = new Mat(), hsv = new Mat(mat.rows(), mat.cols(), CvType.CV_8UC2), mask = new Mat();
