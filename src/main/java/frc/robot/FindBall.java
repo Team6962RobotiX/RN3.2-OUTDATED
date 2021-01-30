@@ -194,12 +194,19 @@ public class FindBall {
 		if(contours.size() == 0) {
 			return mat; 
 		}
+		if(circularity(contours.get(0)) <= 0.5) {
+			return null;
+		}
+		float[] radius = new float[1];
+		Point center = new Point();
+		Imgproc.minEnclosingCircle(new MatOfPoint2f(contours.get(0).toArray()), center, radius);
+		if(Imgproc.arcLength(new MatOfPoint2f(contours.get(0).toArray()), true) / (radius[0] * radius[0] * Math.PI) <= 0.9 ||
+		   Imgproc.arcLength(new MatOfPoint2f(contours.get(0).toArray()), true) / (radius[0] * radius[0] * Math.PI) > 1.0) {
+			return null;
+		}
 		Mat result = new Mat();
 		mat.copyTo(result);
 		Imgproc.drawContours(result, contours, 0, new Scalar(255, 255, 255));
-		float[] cRadius = new float[1];
-		Point cCenter = new Point();
-		Imgproc.minEnclosingCircle(new MatOfPoint2f(contours.get(0).toArray()), cCenter, cRadius);
 		Imgproc.circle(result, cCenter, (int)(cRadius[0]), new Scalar(0, 255, 0), 2);
 		return result;
 	}
