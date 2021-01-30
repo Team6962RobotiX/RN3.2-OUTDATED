@@ -207,7 +207,7 @@ public class FindBall {
 		Mat result = new Mat();
 		mat.copyTo(result);
 		Imgproc.drawContours(result, contours, 0, new Scalar(255, 255, 255));
-		Imgproc.circle(result, cCenter, (int)(cRadius[0]), new Scalar(0, 255, 0), 2);
+		Imgproc.circle(result, center, (int)(radius[0]), new Scalar(0, 255, 0), 2);
 		return result;
 	}
 
