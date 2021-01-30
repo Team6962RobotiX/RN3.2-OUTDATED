@@ -88,6 +88,17 @@ public class FindBall {
 			}
 	}
 
+	public static double circularity(MatOfPoint contour) {
+		float[] cRadius = new float[1];
+		Point cCenter = new Point();
+		Imgproc.minEnclosingCircle(new MatOfPoint2f(contour.toArray()), cCenter, cRadius);
+		double approxArea = cRadius[0] * cRadius[0] * Math.PI;
+		double contourArea = Imgproc.contourArea(contour);
+		System.out.println(contourArea / approxArea);
+		if(approxArea == 0) { return 0.0; }
+		return contourArea / approxArea;
+	}
+	
 	public static Point3 findBall(Mat mat, int width, int height, Mat cameraMatrix, Mat distCoeffs) {
 		if(cameraMatrix == null || cameraMatrix.empty() || distCoeffs == null || distCoeffs.empty()) {
 			return null;
@@ -109,32 +120,19 @@ public class FindBall {
 		Mat temp = new Mat();
 		mask.copyTo(temp);
 		Imgproc.findContours(temp, contours, new Mat(), Imgproc.RETR_EXTERNAL, Imgproc.CHAIN_APPROX_SIMPLE);
-		if(contours.size() == 0) {
-			//System.out.println("Empty contours");
-			return null; 
-		}
-		List<MatOfPoint> result = new ArrayList<MatOfPoint>();
-		for(MatOfPoint contour: contours) {
-			float[] cRadius = new float[1];
-			Point cCenter = new Point();
-			Imgproc.minEnclosingCircle(new MatOfPoint2f(contour.toArray()), cCenter, cRadius);
-			double approxArea = cRadius[0] * cRadius[0] * Math.PI;
-			double contourArea = Imgproc.contourArea(contour);
-			// System.out.println(contourArea / approxArea);
-			if(contourArea / approxArea >= 0.9) { result.add(contour); }
-		}
-		Collections.sort(result, new Comparator<MatOfPoint>() {
+		Collections.sort(contours, new Comparator<MatOfPoint>() {
 			@Override public int compare(final MatOfPoint m1, final MatOfPoint m2) {
-				return (int)(Imgproc.contourArea(m2) - Imgproc.contourArea(m1));
+				return (int)(FindBall.circularity(m2) - FindBall.circularity(m1));
 			}
 		});
-		float[] radius = new float[1];
-		Point center = new Point();
-		if(result.size() == 0) {
+		if(contours.size() == 0) {
 			return null;
 		}
-		Imgproc.minEnclosingCircle(new MatOfPoint2f(result.get(0).toArray()), center, radius);
-		Moments moments = Imgproc.moments(result.get(0));
+		System.out.println(circularity(contours.get(0)));
+		float[] radius = new float[1];
+		Point center = new Point();
+		Imgproc.minEnclosingCircle(new MatOfPoint2f(contours.get(0).toArray()), center, radius);
+		Moments moments = Imgproc.moments(contours.get(0));
 		if(moments.get_m00() == 0) {
 			//System.out.println("moments.get_m00() == 0");
 			return null;
@@ -181,30 +179,21 @@ public class FindBall {
 		Mat temp = new Mat();
 		mask.copyTo(temp);
 		Imgproc.findContours(temp, contours, new Mat(), Imgproc.RETR_EXTERNAL, Imgproc.CHAIN_APPROX_SIMPLE);
+		Collections.sort(contours, new Comparator<MatOfPoint>() {
+			@Override public int compare(final MatOfPoint m1, final MatOfPoint m2) {
+				return (int)(FindBall.circularity(m2) - FindBall.circularity(m1));
+			}
+		});
 		if(contours.size() == 0) {
-			//System.out.println("Empty contours");
 			return mat; 
-		}
-		List<MatOfPoint> contours2 = new ArrayList<MatOfPoint>();
-		for(MatOfPoint contour: contours) {
-			float[] cRadius = new float[1];
-			Point cCenter = new Point();
-			Imgproc.minEnclosingCircle(new MatOfPoint2f(contour.toArray()), cCenter, cRadius);
-			double approxArea = cRadius[0] * cRadius[0] * Math.PI;
-			double contourArea = Imgproc.contourArea(contour);
-			if(contourArea / approxArea >= 0.9) { contours2.add(contour); }
-		}
-		if(contours2.size() == 0) {
-			return mat;
 		}
 		Mat result = new Mat();
 		mat.copyTo(result);
-		Collections.sort(contours2, new Comparator<MatOfPoint>() {
-			@Override public int compare(final MatOfPoint m1, final MatOfPoint m2) {
-				return (int)(Imgproc.contourArea(m2) - Imgproc.contourArea(m1));
-			}
-		});
-		Imgproc.drawContours(result, contours2, 0, new Scalar(255, 255, 255));
+		Imgproc.drawContours(result, contours, 0, new Scalar(255, 255, 255));
+		float[] cRadius = new float[1];
+		Point cCenter = new Point();
+		Imgproc.minEnclosingCircle(new MatOfPoint2f(contours.get(0).toArray()), cCenter, cRadius);
+		Imgproc.circle(result, cCenter, (int)(cRadius[0]), new Scalar(0, 255, 0), 2);
 		return result;
 	}
 
