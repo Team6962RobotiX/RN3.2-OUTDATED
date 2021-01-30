@@ -185,7 +185,7 @@ public class Robot extends TimedRobot {
                                                 distCoeffs);
                                 setBallAngleValue[0] = true;
                                 SmartDashboard.putNumber("ballAngleValue", ballAngleValue[0]);
-                                SmartDashboard.putNumber("setBallAngleValue", setBallAngleValue[0]);
+                                SmartDashboard.putBoolean("setBallAngleValue", setBallAngleValue[0]);
                                 System.gc();
                             }
                         })
