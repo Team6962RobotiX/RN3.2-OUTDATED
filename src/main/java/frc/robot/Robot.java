@@ -283,7 +283,8 @@ public class Robot extends TimedRobot {
             if(rdelta > 0.5){
                 rdelta = 0.5;
             }
-            System.out.println(Double.toString(ldelta) + " ," + Double.toString(rdelta));
+            System.out.println("Left: "+Double.toString(pcurrent[0]) + " : " + Double.toString(encoder1.getDistance()));
+            System.out.println("Right: "+Double.toString(pcurrent[1]) + " : " + Double.toString(encoder2.getDistance()));
         } else {
             System.out.println("0, 0");
             ldelta = 0;
