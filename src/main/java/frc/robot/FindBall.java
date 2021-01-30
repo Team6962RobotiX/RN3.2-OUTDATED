@@ -130,6 +130,9 @@ public class FindBall {
 		});
 		float[] radius = new float[1];
 		Point center = new Point();
+		if(result.size() == 0) {
+			return null;
+		}
 		Imgproc.minEnclosingCircle(new MatOfPoint2f(result.get(0).toArray()), center, radius);
 		Moments moments = Imgproc.moments(result.get(0));
 		if(moments.get_m00() == 0) {
