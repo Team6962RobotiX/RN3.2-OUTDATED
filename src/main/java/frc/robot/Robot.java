@@ -259,7 +259,7 @@ public class Robot extends TimedRobot {
         // }
 
         // Parth Reinvents the wheel!
-        double[] pcurrent = parth.get(pindex);
+        /*double[] pcurrent = parth.get(pindex);
         double[] pnext = {-1, -1, -1};
         double ldelta;
         double rdelta;
@@ -291,6 +291,7 @@ public class Robot extends TimedRobot {
             rdelta = 0;
         }
         myDrive.tankDrive(ldelta,rdelta);
+        */
     }
 
     @Override
