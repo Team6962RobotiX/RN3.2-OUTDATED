@@ -94,7 +94,7 @@ public class FindBall {
 		}
 		
 		if (mat == null || mat.empty()) {
-			System.out.println("mat is empty");
+			//System.out.println("mat is empty");
 
 			return null;
 		}
@@ -123,7 +123,7 @@ public class FindBall {
 		Imgproc.minEnclosingCircle(new MatOfPoint2f(contours.get(0).toArray()), center, radius);
 		Moments moments = Imgproc.moments(contours.get(0));
 		if(moments.get_m00() == 0) {
-			System.out.println("moments.get_m00() == 0");
+			//System.out.println("moments.get_m00() == 0");
 			return null;
 		}
 		double x = moments.get_m10() / moments.get_m00();
@@ -145,7 +145,7 @@ public class FindBall {
 		for(MatOfPoint m: contours) {
 			m.release();
 		}
-		System.out.println("radius < 10");
+		//System.out.println("radius < 10");
 		return null;
 	}
 
@@ -154,7 +154,7 @@ public class FindBall {
 			return null;
 		}
 		if (mat == null || mat.empty()) {
-			System.out.println("mat is empty");
+			//System.out.println("mat is empty");
 			return null;
 		}
 		Mat blurred = new Mat(), hsv = new Mat(mat.rows(), mat.cols(), CvType.CV_8UC2), mask = new Mat();
