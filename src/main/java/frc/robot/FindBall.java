@@ -127,7 +127,7 @@ public class FindBall {
 			return null;
 		}
 		System.out.println("Area Percentage: " + Double.toString(circularity(contours.get(0))));
-		if(circularity(contours.get(0)) <= 0.7) {
+		if(circularity(contours.get(0)) <= 0.5) {
 			return null;
 		}
 		float[] radius = new float[1];
@@ -136,7 +136,7 @@ public class FindBall {
 		if(radius[0] == 0){return null;}
 		System.out.println("Perimeter Percentage: " + Double.toString((Imgproc.arcLength(new MatOfPoint2f(contours.get(0).toArray()), true) / (radius[0] * 2 * Math.PI))));
 		if(Imgproc.arcLength(new MatOfPoint2f(contours.get(0).toArray()), true) / (radius[0] * 2 * Math.PI) <= 0.7 ||
-		   Imgproc.arcLength(new MatOfPoint2f(contours.get(0).toArray()), true) / (radius[0] * 2 * Math.PI) > 1.0) {
+		   Imgproc.arcLength(new MatOfPoint2f(contours.get(0).toArray()), true) / (radius[0] * 2 * Math.PI) > 1.2) {
 			return null;
 		}
 		Moments moments = Imgproc.moments(contours.get(0));
@@ -194,7 +194,7 @@ public class FindBall {
 		if(contours.size() == 0) {
 			return mat; 
 		}
-		if(circularity(contours.get(0)) <= 0.7) {
+		if(circularity(contours.get(0)) <= 0.5) {
 			return null;
 		}
 		float[] radius = new float[1];
@@ -202,7 +202,7 @@ public class FindBall {
 		Imgproc.minEnclosingCircle(new MatOfPoint2f(contours.get(0).toArray()), center, radius);
 		if(radius[0] == 0){return null;}
 		if(Imgproc.arcLength(new MatOfPoint2f(contours.get(0).toArray()), true) / (radius[0] * 2 * Math.PI) <= 0.7 ||
-		   Imgproc.arcLength(new MatOfPoint2f(contours.get(0).toArray()), true) / (radius[0] * 2 * Math.PI) > 1.0) {
+		   Imgproc.arcLength(new MatOfPoint2f(contours.get(0).toArray()), true) / (radius[0] * 2 * Math.PI) > 1.2) {
 			return null;
 		}
 		Mat result = new Mat();
