@@ -9,6 +9,7 @@ import edu.wpi.cscore.UsbCamera;
 import edu.wpi.first.cameraserver.*;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Encoder;
+import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.TimedRobot;
@@ -198,6 +199,8 @@ public class Robot extends TimedRobot {
     public void robotPeriodic() {
         SmartDashboard.putNumber("Left Encoder", encoder1.getDistance());
         SmartDashboard.putNumber("Right Encoder", encoder2.getDistance());
+        System.out.println(System.getProperty("user.dir"));
+        System.out.println(Filesystem.getDeployDirectory());
     }
 
     @Override
@@ -270,7 +273,7 @@ public class Robot extends TimedRobot {
         }
         */
         // Parth Reinvents the wheel!
-        if(pindex < parth.size()) myDrive.tankDrive(parth.get(pindex)[0], parth.get(pindex)[1]);
+        if (pindex < parth.size()) myDrive.tankDrive(parth.get(pindex)[0], parth.get(pindex)[1]);
         pindex++;
     }
 
@@ -346,7 +349,7 @@ public class Robot extends TimedRobot {
             if (ballAngleValue[0] == 0) {
                 joystickLValue = 0.7;
                 joystickRValue = -0.7;
-            }else{
+            } else {
                 joystickLValue = 0.5;
                 joystickRValue = 0.5;
             }
@@ -378,9 +381,10 @@ public class Robot extends TimedRobot {
             }
         }*/
         // Parth reinvents the wheel!
-        double[] temporary = {joystickLValue,joystickRValue,encoder1.getDistance(), encoder2.getDistance(), now};
+        double[] temporary = {
+            joystickLValue, joystickRValue, encoder1.getDistance(), encoder2.getDistance(), now
+        };
         parth.add(temporary);
-        
     }
 
     @Override
