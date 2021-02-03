@@ -199,8 +199,8 @@ public class Robot extends TimedRobot {
     public void robotPeriodic() {
         SmartDashboard.putNumber("Left Encoder", encoder1.getDistance());
         SmartDashboard.putNumber("Right Encoder", encoder2.getDistance());
-        System.out.println(System.getProperty("user.dir"));
-        System.out.println(Filesystem.getDeployDirectory());
+//         System.out.println(System.getProperty("user.dir"));
+//         System.out.println(Filesystem.getDeployDirectory());
     }
 
     @Override
