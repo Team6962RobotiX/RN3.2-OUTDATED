@@ -110,7 +110,7 @@ public class FindBall {
 		Mat blurred = new Mat(), hsv = new Mat(mat.rows(), mat.cols(), CvType.CV_8UC2), mask = new Mat();
 		Imgproc.GaussianBlur(mat, blurred, new Size(11, 11), 0);
 		Imgproc.cvtColor(blurred, hsv, Imgproc.COLOR_BGR2HSV);
-		Core.inRange(hsv, new Scalar(20, 40, 60), new Scalar(30, 190, 255), mask);
+		Core.inRange(hsv, new Scalar(15, 40, 100), new Scalar(35, 190, 255), mask);
 		Mat element = Imgproc.getStructuringElement(Imgproc.MORPH_RECT, new Size(3, 3));
 		Imgproc.erode(mask, mask, element, new Point(), 2);
 		Imgproc.dilate(mask, mask, element, new Point(), 2);
@@ -178,7 +178,7 @@ public class FindBall {
 		Mat blurred = new Mat(), hsv = new Mat(mat.rows(), mat.cols(), CvType.CV_8UC2), mask = new Mat();
 		//Imgproc.GaussianBlur(mat, blurred, new Size(11, 11), 0);
 		Imgproc.cvtColor(mat, hsv, Imgproc.COLOR_BGR2HSV);
-		Core.inRange(hsv, new Scalar(15, 40, 60), new Scalar(35, 190, 255), mask);
+		Core.inRange(hsv, new Scalar(15, 40, 100), new Scalar(35, 190, 255), mask);
 		Mat element = Imgproc.getStructuringElement(Imgproc.MORPH_RECT, new Size(3, 3));
 		Imgproc.erode(mask, mask, element, new Point(), 2);
 		Imgproc.dilate(mask, mask, element, new Point(), 2);
