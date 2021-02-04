@@ -110,7 +110,7 @@ public class FindBall {
 		Mat blurred = new Mat(), hsv = new Mat(mat.rows(), mat.cols(), CvType.CV_8UC2), mask = new Mat();
 		Imgproc.GaussianBlur(mat, blurred, new Size(11, 11), 0);
 		Imgproc.cvtColor(blurred, hsv, Imgproc.COLOR_BGR2HSV);
-		Core.inRange(hsv, new Scalar(22, 120, 151), new Scalar(26, 175, 255), mask);
+		Core.inRange(hsv, new Scalar(20, 120, 151), new Scalar(30, 175, 255), mask);
 		Mat element = Imgproc.getStructuringElement(Imgproc.MORPH_RECT, new Size(3, 3));
 		Imgproc.erode(mask, mask, element, new Point(), 2);
 		Imgproc.dilate(mask, mask, element, new Point(), 2);
@@ -178,7 +178,7 @@ public class FindBall {
 		Mat blurred = new Mat(), hsv = new Mat(mat.rows(), mat.cols(), CvType.CV_8UC2), mask = new Mat();
 		Imgproc.GaussianBlur(mat, blurred, new Size(11, 11), 0);
 		Imgproc.cvtColor(blurred, hsv, Imgproc.COLOR_BGR2HSV);
-		Core.inRange(hsv, new Scalar(22, 120, 151), new Scalar(26, 175, 255), mask);
+		Core.inRange(hsv, new Scalar(20, 120, 151), new Scalar(30, 175, 255), mask);
 		Mat element = Imgproc.getStructuringElement(Imgproc.MORPH_RECT, new Size(3, 3));
 		Imgproc.erode(mask, mask, element, new Point(), 2);
 		Imgproc.dilate(mask, mask, element, new Point(), 2);
@@ -186,7 +186,7 @@ public class FindBall {
 		Mat temp = new Mat();
 		mask.copyTo(temp);
 		Imgproc.findContours(temp, contours, new Mat(), Imgproc.RETR_EXTERNAL, Imgproc.CHAIN_APPROX_SIMPLE);
-		Collections.sort(contours, new Comparator<MatOfPoint>() {
+		/*Collections.sort(contours, new Comparator<MatOfPoint>() {
 			@Override public int compare(final MatOfPoint m1, final MatOfPoint m2) {
 				return (int)(FindBall.circularity(m2) - FindBall.circularity(m1));
 			}
@@ -204,10 +204,10 @@ public class FindBall {
 		if(Imgproc.arcLength(new MatOfPoint2f(contours.get(0).toArray()), true) / (radius[0] * 2 * Math.PI) <= 0.7 ||
 		   Imgproc.arcLength(new MatOfPoint2f(contours.get(0).toArray()), true) / (radius[0] * 2 * Math.PI) >= 1.1) {
 			return null;
-		}
+		}*/
 		Mat result = new Mat();
 		mat.copyTo(result);
-		Imgproc.drawContours(result, contours, 0, new Scalar(255, 255, 255));
+		Imgproc.drawContours(result, contours, -1, new Scalar(255, 255, 255));
 		Imgproc.circle(result, center, (int)(radius[0]), new Scalar(0, 255, 0), 2);
 		return result;
 	}
