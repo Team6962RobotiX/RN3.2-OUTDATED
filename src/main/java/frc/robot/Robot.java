@@ -16,6 +16,8 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.VictorSP;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import java.io.File;
+import java.io.IOException;
 
 import org.opencv.core.*;
 import org.opencv.core.Mat;
@@ -86,6 +88,17 @@ public class Robot extends TimedRobot {
     @Override
     public void robotInit() {
 
+        try {
+            File f = new File("filename.txt");
+            if (f.createNewFile()) {
+                System.out.println("Yay!");
+            } else {
+                continue;
+            }
+        } catch (IOException e) {
+            continue;   
+        }
+        
         // Joystick
         joystick0 = new Joystick(0);
         joystick1 = new Joystick(1);
