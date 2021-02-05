@@ -177,6 +177,8 @@ public class Robot extends TimedRobot {
                                     i++;
                                     flag = true;
                                 }
+                                output = PowerCellDetect.detect(source);
+                                /*
                                 output =
                                         FindBall.displayContours(
                                                 source,
@@ -184,6 +186,7 @@ public class Robot extends TimedRobot {
                                                 WINDOW_HEIGHT,
                                                 cameraMatrix,
                                                 distCoeffs);
+                                                */
                                 if (output != null && !output.empty()) {
                                     cvSource.putFrame(output);
                                 } else {
