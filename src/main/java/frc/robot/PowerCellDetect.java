@@ -1,4 +1,5 @@
 import org.opencv.core.*;
+import org.opencv.imgproc.*;
 
 public class PowerCellDetect {
 	private static final int H_LOW = 20;
