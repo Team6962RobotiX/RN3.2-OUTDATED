@@ -87,17 +87,6 @@ public class Robot extends TimedRobot {
 
     @Override
     public void robotInit() {
-
-        try {
-            File f = new File("filename.txt");
-            if (f.createNewFile()) {
-                System.out.println("Yay!");
-            } else {
-                continue;
-            }
-        } catch (IOException e) {
-            continue;   
-        }
         
         // Joystick
         joystick0 = new Joystick(0);
