@@ -1,12 +1,36 @@
-# Returns 2D array of circles, [[x, y, r], [x, y, r], ...]
-def find_circles(image):
-    H_low = 20
-    H_high = 45
-    S_low = 145
-    S_high = 255
-    V_low = 115
-    V_high = 255
+import numpy as np
+import cv2
+import math
 
+cap = cv2.VideoCapture(0)
+
+def callback(x):
+ global H_low,H_high,S_low,S_high,V_low,V_high
+ H_low = cv2.getTrackbarPos('low H','controls')
+ H_high = cv2.getTrackbarPos('high H','controls')
+ S_low = cv2.getTrackbarPos('low S','controls')
+ S_high = cv2.getTrackbarPos('high S','controls')
+ V_low = cv2.getTrackbarPos('low V','controls')
+ V_high = cv2.getTrackbarPos('high V','controls')
+
+cv2.namedWindow('controls', 2)
+cv2.resizeWindow("controls", 550,10);
+
+H_low = 20
+H_high = 45
+S_low = 100
+S_high = 255
+V_low = 115
+V_high = 255
+
+cv2.createTrackbar('low H', 'controls', H_low, 179, callback)
+cv2.createTrackbar('high H', 'controls', H_high, 179, callback)
+cv2.createTrackbar('low S', 'controls', S_low, 255, callback)
+cv2.createTrackbar('high S', 'controls', S_high, 255, callback)
+cv2.createTrackbar('low V', 'controls', V_low, 255, callback)
+cv2.createTrackbar('high V', 'controls', V_high, 255, callback)
+
+def find_circles(image):
     blur_size = 13
     kernel_size = 5
     circle_thresh = 0.12
@@ -45,10 +69,21 @@ def find_circles(image):
                 circles.append([int((x + w / 2)), int((y + h / 2)), int(r)])
                 hull_list.append(hull)
 
-    # Displaying:
-    # for circle in circles:
-        # cv2.circle(result, (circle[0], circle[1]), circle[2], (255, 100, 75), int(circle[2] / 15))
-        # cv2.circle(result, (circle[0], circle[1]), 1, (255, 100, 75), int(circle[2] / 15))
-    # cv2.imshow("result", result)
-
+    cv2.imshow("canny", closed_canny)
     return circles
+
+
+if cap.isOpened():
+    while True:
+        ret, img = cap.read()
+        circle_result = find_circles(img)
+        for circle in circle_result:
+            cv2.circle(img, (circle[0], circle[1]), circle[2], (255, 100, 75), int(circle[2] / 15))
+            cv2.circle(img, (circle[0], circle[1]), 1, (255, 100, 75), int(circle[2] / 15))
+        cv2.imshow("result", img)
+
+        k = cv2.waitKey(1) & 0xFF
+        if k == ord('q'):
+            break
+cap.release()
+cv2.destroyAllWindows()
