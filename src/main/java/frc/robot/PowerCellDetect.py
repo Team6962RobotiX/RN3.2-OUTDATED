@@ -89,7 +89,7 @@ def find_circles(image):
 if cap.isOpened():
     while True:
         ret, img = cap.read()
-        frame = cv2.resize(img, (640, 360))
+        frame = cv2.resize(img, (640, 480))
         circle_result = find_circles(frame)
         for circle in circle_result:
             cv2.circle(frame, (circle[0], circle[1]), circle[2], (255, 100, 75), int(circle[2] / 15))
