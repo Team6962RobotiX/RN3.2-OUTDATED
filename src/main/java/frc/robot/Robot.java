@@ -61,7 +61,7 @@ public class Robot extends TimedRobot {
     boolean runIntake = true;
 
     // Camera
-    UsbCamera camera;
+    /*UsbCamera camera;
     double[] targetAngleValue = new double[1];
     boolean[] setTargetAngleValue = new boolean[1];
     double[] ballAngleValue = new double[1];
@@ -71,7 +71,7 @@ public class Robot extends TimedRobot {
     Mat cameraMatrix;
     Mat distCoeffs;
     CvSink cvSink;
-    Mat source;
+    Mat source;*/
 
     // Autonomous
     ArrayList<double[]> path = new ArrayList<double[]>();
@@ -116,7 +116,7 @@ public class Robot extends TimedRobot {
         stopBelt = new DigitalInput(6);
 
         // Camera
-        ballAngleValue[0] = -1;
+        /*ballAngleValue[0] = -1;
 
         System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
         cameraMatrix = new Mat();
@@ -125,7 +125,7 @@ public class Robot extends TimedRobot {
         new Thread(
                         () -> {
                             FindTarget.setup();
-                            FindBall.readCalibrationData(
+                            /*FindBall.readCalibrationData(
                                     "3 3\n"
                                             + "9.292197792782764054e+02 0.000000000000000000e+00"
                                             + " 6.771372380756025677e+02\n"
@@ -175,7 +175,7 @@ public class Robot extends TimedRobot {
                                                 WINDOW_HEIGHT,
                                                 cameraMatrix,
                                                 distCoeffs);
-                                                */
+                                                
                                 if (output != null && !output.empty()) {
                                     cvSource.putFrame(output);
                                 } else {
@@ -194,10 +194,11 @@ public class Robot extends TimedRobot {
                                 SmartDashboard.putNumber("ballAngleValue", ballAngleValue[0]);
                                 SmartDashboard.putBoolean(
                                         "setBallAngleValue", setBallAngleValue[0]);
-                                System.gc();
+                                
+                                        System.gc();
                             }
                         })
-                .start();
+                .start();*/
     }
 
     @Override
@@ -348,16 +349,6 @@ public class Robot extends TimedRobot {
         // Forgive a slight turn
         if (joystickLValue - joystickRValue < 0.2 && joystickLValue - joystickRValue > -0.2) {
             joystickLValue = joystickRValue;
-        }
-
-        if (joystick1.getRawButton(2)) {
-            if (ballAngleValue[0] == 0) {
-                joystickLValue = 0.7;
-                joystickRValue = -0.7;
-            } else {
-                joystickLValue = 0.5;
-                joystickRValue = 0.5;
-            }
         }
 
         // Actual Drive code
