@@ -84,6 +84,8 @@ public class Robot extends TimedRobot {
     // Parth reinvents the wheel
     ArrayList<double[]> parth = new ArrayList<double[]>();
     int pindex = 0;
+    
+    final int WIDTH = 640;
 
     @Override
     public void robotInit() {
@@ -293,6 +295,26 @@ public class Robot extends TimedRobot {
     @Override
     public void teleopPeriodic() {
 
+        // POWER CELL PICKUP CODE.
+        if(joystick1.getRawButton(2)) {
+            double xPos = SmartDashboard.getNumber("ballX", -1);
+            if(xPos != -1) {
+                // range: 300 - 525
+                if(xPos < 300) {
+                    // the ball is to the left of the frame
+                    myDrive.tankDrive(-0.5, 0.5);
+                }
+                else if(300 <= xPos && xPos <= 525) {
+                    // acceptable range
+                    myDrive.tankDrive(0.4, 0.4);
+                }
+                else if(xPos > 525) {
+                    // the ball is to the right of the frame
+                    myDrive.tankDrive(0.5, -0.5);
+                }
+            }
+        }
+        
         // Turning speed limit
         double limitTurnSpeed = 0.75; // EDITABLE VALUE
 
