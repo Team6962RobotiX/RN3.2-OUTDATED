@@ -311,6 +311,7 @@ public class Robot extends TimedRobot {
                 if(xPos < 300) {
                     // the ball is to the left of the frame
                     myDrive.tankDrive(-0.5, 0.5);
+                    xPos = SmartDashboard.getNumber("ballX", -1);
                 }
                 else if(300 <= xPos && xPos <= 525) {
                     // acceptable range
@@ -319,6 +320,7 @@ public class Robot extends TimedRobot {
                 else if(xPos > 525) {
                     // the ball is to the right of the frame
                     myDrive.tankDrive(0.5, -0.5);
+                    xPos = SmartDashboard.getNumber("ballX", -1);
                 }
             }
         }
