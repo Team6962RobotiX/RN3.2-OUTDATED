@@ -86,6 +86,10 @@ public class Robot extends TimedRobot {
     int pindex = 0;
     
     final int WIDTH = 640;
+    
+    // Ball tracking variables
+    int frames = -1;
+    double xPos;
 
     @Override
     public void robotInit() {
@@ -295,9 +299,13 @@ public class Robot extends TimedRobot {
     @Override
     public void teleopPeriodic() {
 
+        if(++frames % 30 == 0) {
+            xPos = SmartDashboard.getNumber("ballX", -1);
+            frames = 0;
+        }
+        
         // POWER CELL PICKUP CODE.
-        if(joystick1.getRawButton(2)) {
-            double xPos = SmartDashboard.getNumber("ballX", -1);
+        if(joystick1.getRawButton(2)) { 
             if(xPos != -1) {
                 // range: 300 - 525
                 if(xPos < 300) {
